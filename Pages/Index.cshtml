@@ -1,0 +1,62 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+
+<!-- Header -->
+<header class="masthead">
+    <div class="container">
+        <div class="intro-text">
+            <img src="~/logo-ayo-olahraga.png"/>
+            <div class="intro-lead-in mt-4">Deputi Bidang Pembudayaan Olahraga</div>
+            <div class="intro-heading text-uppercase">Evaluasi Kegiatan</div>
+        </div>
+    </div>
+</header>
+
+<!-- Summary Kegiatan -->
+<section class="page-section" id="summary">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading text-uppercase">Summary Kegiatan</h2>
+                <h3 class="section-subheading text-muted">Deputi Bidang Pembudayaan Olahraga</h3>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Tahun</label>
+            <div class="col-sm-10 col-md-3">
+                <select asp-for="Tahun" class ="form-control" asp-items="ViewBag.Tahun">
+                    <option value="0">Keseluruhan</option>
+                </select>
+            </div>
+        </div>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Penanggung Jawab
+                    </th>
+                    <th class="text-right pr-4">
+                        Jumlah Kegiatan
+                    </th>
+                    <th class="text-right pr-4">
+                        Total Peserta
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody id="kegiatan-summary">
+            </tbody>
+        </table>
+    </div>
+</section>
+
+@section Scripts 
+{
+	@{await Html.RenderPartialAsync("_AjaxSummaryKegiatanScriptPartial");}
+}

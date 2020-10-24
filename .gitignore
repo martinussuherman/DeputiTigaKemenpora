@@ -1,0 +1,5 @@
+bin/**
+obj/**
+docker-root/**
+*.sql
+appsettings.Development.json

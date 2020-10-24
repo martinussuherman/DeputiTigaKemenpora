@@ -1,0 +1,97 @@
+@page "{id:int?}"
+@using Microsoft.AspNetCore.Http.Extensions
+@model ViewModel
+
+@{
+    Layout = "_Layout";
+}
+
+<div class="card-body">
+    <div class="text-center col-12">
+        <img class="logo cetak" src="~/logo-kemenpora.png" />
+        <h1 class="judul mt-2">DEPUTI BIDANG PEMBUDAYAAN OLAHRAGA</h1>
+    </div>
+
+    <label class="col-4">Penanggung Jawab</label>
+    <label class="col-7">@Model.Kegiatan.NamaPenanggungJawab</label>
+
+    <label class="col-4">Nama Kegiatan</label>
+    <label class="col-7">@Model.Kegiatan.Nama</label>
+
+    <label class="col-4">Tempat</label>
+    <label class="col-7">@Model.Kegiatan.Tempat</label>
+
+    <label class="col-4">Tanggal Mulai</label>
+    <label class="col-7">@Model.Kegiatan.TanggalMulaiView</label>
+
+    <label class="col-4">Tanggal Selesai</label>
+    <label class="col-7">@Model.Kegiatan.TanggalSelesaiView</label>
+
+    <label class="col-4">Nama Pejabat Pembuka</label>
+    <label class="col-7">@Model.Kegiatan.NamaPejabatPembuka</label>
+
+    <label class="col-4">Jumlah Peserta</label>
+    <label class="col-7">@Model.Kegiatan.JumlahPesertaView</label>
+
+    <label class="col-4">Kendala</label>
+    <label class="col-7">@Model.Kegiatan.KendalaView</label>
+
+    <label class="col-4">Link Berita</label>
+    <label class="col-7">
+        <div>
+            <a href="@Model.Kegiatan.LinkBerita1" target="_blank">@Model.Kegiatan.LinkBerita1</a>
+        </div>
+        <div>
+            <a href="@Model.Kegiatan.LinkBerita2" target="_blank">@Model.Kegiatan.LinkBerita2</a>
+        </div>
+        <div>
+            <a href="@Model.Kegiatan.LinkBerita3" target="_blank">@Model.Kegiatan.LinkBerita3</a>
+        </div>
+    </label>
+
+    <label class="col-4 align-top">Foto Kegiatan</label>
+    <label class="col-7 foto-kegiatan">
+        <div>
+            <img src="@Url.Content("~" + Model.Kegiatan.FotoKegiatan1)" />
+        </div>
+    </label>
+    <label class="col-4 align-top"></label>
+    <label class="col-7 foto-kegiatan">
+        <div>
+            <img src="@Url.Content("~" + Model.Kegiatan.FotoKegiatan2)" />
+        </div>
+    </label>
+    <label class="col-4 align-top"></label>
+    <label class="col-7 foto-kegiatan">
+        <div>
+            <img src="@Url.Content("~" + Model.Kegiatan.FotoKegiatan3)" />
+        </div>
+    </label>
+    <label class="col-4 align-top"></label>
+    <label class="col-7 foto-kegiatan">
+        <div>
+            <img src="@Url.Content("~" + Model.Kegiatan.FotoKegiatan4)" />
+        </div>
+    </label>
+    <label class="col-4 align-top"></label>
+    <label class="col-7 foto-kegiatan">
+        <div>
+            <img src="@Url.Content("~" + Model.Kegiatan.FotoKegiatan5)" />
+        </div>
+    </label>
+
+    <label class="col-4 align-top">File Pendukung</label>
+    <label class="col-7">
+        <div>
+            <a href="@Model.Kegiatan.FilePendukung1" target="_blank">@Model.Kegiatan.FilePendukung1View</a>
+        </div>
+        <div>
+            <a href="@Model.Kegiatan.FilePendukung2" target="_blank">@Model.Kegiatan.FilePendukung2View</a>
+        </div>
+        <div>
+            <a href="@Model.Kegiatan.FilePendukung3" target="_blank">@Model.Kegiatan.FilePendukung3View</a>
+        </div>
+    </label>
+
+    <a asp-page="./GeneratePdf" asp-route-sourceUrl="@HttpContext.Request.GetEncodedUrl()" class="btn btn-info d-print-none mt-5">Generate Pdf</a>
+</div>

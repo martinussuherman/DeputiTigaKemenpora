@@ -1,0 +1,34 @@
+@page "{id:int?}"
+@model EditModel
+@{
+    Layout = "_CommonLayout";
+}
+
+<div class="card-body">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label>User Name</label>
+        <input asp-for="Input.UserName" class="form-control" disabled />
+    </div>
+
+    <form method="post">
+        <input type="hidden" asp-for="Input.Id" />
+
+        <div class="form-group">
+            <label class="control-label">Role</label>
+            <select asp-for="Input.UserRole" class ="form-control" asp-items="ViewBag.UserRole" required>
+                <option value="">Silahkan pilih ...</option>
+            </select>
+            <span asp-validation-for="Input.UserRole" class="text-danger"></span>
+        </div>
+
+        <input type="submit" value="Simpan" class="btn btn-primary" />
+        <a asp-page="./Index" class="btn btn-warning">Kembali</a>
+    </form>
+</div>
+
+@section Scripts 
+{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,41 @@
+@using DeputiTigaKemenpora.ViewModels
+@model FileUploadData
+
+@{
+string path = "";
+string inputDivClass = "";
+string linkClass = "";
+}
+
+@if( Model.FilePathExists )
+{
+    path = Url.Content("~" + Model.FilePath);
+    inputDivClass = "custom-file d-none";
+    linkClass = "file-info";
+}
+else
+{
+    path = "";
+    inputDivClass = "custom-file";
+    linkClass = "file-info d-none";
+}
+
+<div class="form-group">
+    <div class="@inputDivClass">
+        <input type="hidden"
+            class="file-path"
+            name="@Model.InputName"
+            value="@Model.FilePath" />
+        <input type="file" class="dokumen-file form-control-file mb-1" />
+        <input type="button" value="Upload" class="btn btn-warning btn-upload mb-1" disabled />
+    </div>
+    <div class="@linkClass" >
+        <a target="_blank"
+            class="file-link btn btn-success mr-2"
+            href="@path">
+            Download File
+        </a>
+        <!-- <span>|</span> -->
+        <a class="btn btn-danger btn-delete">Delete</a>
+    </div>
+</div>

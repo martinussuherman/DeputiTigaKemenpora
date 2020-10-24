@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>DeputiTigaKemenpora-62EBBC62-FE12-493C-B04D-16CF2C4773B8</UserSecretsId>
+    <RootNamespace>DeputiTigaKemenpora</RootNamespace>
+    <DefineConstants>$(DefineConstants);NETCORE3</DefineConstants>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <None Update="app.db" CopyToOutputDirectory="PreserveNewest" ExcludeFromSingleFile="true" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.3" />
+    <PackageReference Include="P.Pager.Mvc.Core" Version="1.4.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.2" />
+    <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="18.3.0.35" />
+    <PackageReference Include="Syncfusion.HtmlToPdfConverter.QtWebKit.Net.Core" Version="18.3.0.35" />
+    <PackageReference Include="Syncfusion.Licensing" Version="18.3.0.35" />
+    <PackageReference Include="Syncfusion.Pdf.Net.Core" Version="18.3.0.35" />
+    <PackageReference Include="Syncfusion.XlsIO.Net.Core" Version="18.3.0.35" />
+  </ItemGroup>
+
+</Project>

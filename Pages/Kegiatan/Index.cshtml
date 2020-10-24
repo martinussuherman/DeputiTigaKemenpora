@@ -1,0 +1,68 @@
+@page 
+@model IndexModel
+
+@{
+    Layout = "_CommonLayout";
+}
+
+<div class="card-body">
+    <p>
+        <a asp-page="Create" class="btn btn-success">Tambah</a>
+        <a asp-page="Export" class="btn btn-dark">Ekspor ke Excel</a>
+    </p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Id
+                </th>
+                <th>
+                    Penanggung Jawab
+                </th>
+                <th>
+                    Nama
+                </th>
+                <th>
+                    Tempat
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+@foreach (var item in Model.Kegiatan) 
+{
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NamaPenanggungJawab)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nama)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tempat)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-warning">Ubah</a>
+
+@if(Model.IsUserCanDelete)
+{
+                    <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Hapus</a>
+}
+
+                    <a asp-page="./View" asp-route-id="@item.Id" class="btn btn-info">Lihat</a>
+                </td>
+            </tr>
+}
+
+        </tbody>
+    </table>
+
+    @await Html.PartialAsync("_PagingPartial", Model.Kegiatan)
+</div>

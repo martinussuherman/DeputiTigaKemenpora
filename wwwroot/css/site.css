@@ -1,0 +1,83 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+main
+{
+  margin-top: 140px;
+}
+
+header.masthead
+{
+  margin-top: -140px;
+}
+
+img.logo
+{
+  max-height: 55vh;
+}
+
+.foto-kegiatan img
+{
+  max-width: 576px;
+  margin-bottom: 16px;
+}
+
+#summary
+{
+  background-image: url(../img/home-summary-bg.jpg);
+  background-size: cover;
+}
+
+.bg-page-detail
+{
+  background-image: url(../img/detail-bg.jpg);
+  background-size: cover;
+}
+
+.page-login
+{
+  background-image: url(../img/login-bg.jpg);
+  background-size: contain;
+}
+
+#summary .container, .row-cards.card
+{
+  background-color: rgba(255,255,255,0.6);
+}
+
+@media print
+{
+  main
+  {
+    margin-top: 0;
+  }
+  
+  .container
+  {
+    min-width: auto;
+    max-width: none;
+  }
+
+  h1.judul
+  {
+    margin-bottom: 2cm;
+    font-size: 16pt;
+  }
+
+  img.logo.cetak
+  {
+    max-height: 180px;
+    margin-top: 1cm;
+    margin-bottom: 0.8cm;
+  }
+
+  .card-body
+  {
+    padding: 0;
+  }
+
+  .foto-kegiatan img
+  {
+    max-width: 13cm;
+    margin-bottom: 1cm;
+  }
+}
