@@ -72,7 +72,6 @@ namespace DeputiTigaKemenpora
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -127,7 +126,7 @@ namespace DeputiTigaKemenpora
 
             PagerUrlHelper.ItemPerPage = 20;
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
-				Configuration.GetSection("SfLicense"));
+				Configuration.GetValue<string>("SfLicense"));
         }
     }
 }
