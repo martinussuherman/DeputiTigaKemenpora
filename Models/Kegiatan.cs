@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace DeputiTigaKemenpora.Models
 {
@@ -15,6 +14,7 @@ namespace DeputiTigaKemenpora.Models
         public uint JumlahPeserta { get; set; }
         public sbyte AdaKendala { get; set; }
         public string Kendala { get; set; }
+        public int? KabupatenKota { get; set; }
         public string LinkBerita1 { get; set; }
         public string LinkBerita2 { get; set; }
         public string LinkBerita3 { get; set; }
@@ -27,6 +27,7 @@ namespace DeputiTigaKemenpora.Models
         public string FilePendukung2 { get; set; }
         public string FilePendukung3 { get; set; }
 
+        public virtual KabupatenKota KabupatenKotaNavigation { get; set; }
         public virtual PenanggungJawab PenanggungJawabNavigation { get; set; }
     }
 }
