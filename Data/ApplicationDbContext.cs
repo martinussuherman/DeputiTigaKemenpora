@@ -1,94 +1,168 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DeputiTigaKemenpora.Models;
+﻿using DeputiTigaKemenpora.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeputiTigaKemenpora.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public partial class ApplicationDbContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) {}
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
+        public virtual DbSet<KabupatenKota> KabupatenKota { get; set; }
         public virtual DbSet<Kegiatan> Kegiatan { get; set; }
         public virtual DbSet<PenanggungJawab> PenanggungJawab { get; set; }
+        public virtual DbSet<Provinsi> Provinsi { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<KabupatenKota>(entity =>
+            {
+                entity.HasKey(e => e.Kode)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("kabupaten_kota");
+
+                entity.HasIndex(e => e.KodeProvinsi)
+                    .HasName("FK_kabupaten_kota_provinsi");
+
+                entity.Property(e => e.Kode).HasColumnType("int(11)");
+
+                entity.Property(e => e.KodeProvinsi).HasColumnType("tinyint(4)");
+
+                entity.Property(e => e.Lat).HasColumnType("decimal(9,6)");
+
+                entity.Property(e => e.Long).HasColumnType("decimal(9,6)");
+
+                entity.Property(e => e.Nama)
+                    .IsRequired()
+                    .HasColumnType("tinytext")
+                    .HasDefaultValueSql("''")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.HasOne(d => d.KodeProvinsiNavigation)
+                    .WithMany(p => p.KabupatenKota)
+                    .HasForeignKey(d => d.KodeProvinsi)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_kabupaten_kota_provinsi");
+            });
 
             modelBuilder.Entity<Kegiatan>(entity =>
             {
                 entity.ToTable("kegiatan");
 
+                entity.HasIndex(e => e.KabupatenKota)
+                    .HasName("FK_kegiatan_kabupaten_kota");
+
                 entity.HasIndex(e => e.PenanggungJawab)
                     .HasName("FK_kegiatan_penanggung_jawab");
 
-                entity.Property(e => e.AdaKendala)
-                    .HasColumnType("tinyint(4)")
-                    .HasDefaultValueSql("'0'");
+                entity.Property(e => e.Id).HasColumnType("int(10) unsigned");
+
+                entity.Property(e => e.AdaKendala).HasColumnType("tinyint(4)");
 
                 entity.Property(e => e.FilePendukung1)
-                    .HasColumnType("varchar(100)")
-                    .HasDefaultValueSql("''");
+                    .IsRequired()
+                    .HasColumnType("tinytext")
+                    .HasDefaultValueSql("''")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.FilePendukung2)
-                    .HasColumnType("varchar(100)")
-                    .HasDefaultValueSql("''");
+                    .IsRequired()
+                    .HasColumnType("tinytext")
+                    .HasDefaultValueSql("''")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.FilePendukung3)
-                    .HasColumnType("varchar(100)")
-                    .HasDefaultValueSql("''");
+                    .IsRequired()
+                    .HasColumnType("tinytext")
+                    .HasDefaultValueSql("''")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.FotoKegiatan1)
-                    .HasColumnType("varchar(100)")
-                    .HasDefaultValueSql("''");
+                    .IsRequired()
+                    .HasColumnType("tinytext")
+                    .HasDefaultValueSql("''")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.FotoKegiatan2)
-                    .HasColumnType("varchar(100)")
-                    .HasDefaultValueSql("''");
+                    .IsRequired()
+                    .HasColumnType("tinytext")
+                    .HasDefaultValueSql("''")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.FotoKegiatan3)
-                    .HasColumnType("varchar(100)")
-                    .HasDefaultValueSql("''");
+                    .IsRequired()
+                    .HasColumnType("tinytext")
+                    .HasDefaultValueSql("''")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.FotoKegiatan4)
-                    .HasColumnType("varchar(100)")
-                    .HasDefaultValueSql("''");
+                    .IsRequired()
+                    .HasColumnType("tinytext")
+                    .HasDefaultValueSql("''")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.FotoKegiatan5)
-                    .HasColumnType("varchar(100)")
-                    .HasDefaultValueSql("''");
+                    .IsRequired()
+                    .HasColumnType("tinytext")
+                    .HasDefaultValueSql("''")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
 
-                entity.Property(e => e.JumlahPeserta)
-                    .HasColumnType("int(10) unsigned")
-                    .HasDefaultValueSql("'0'");
+                entity.Property(e => e.JumlahPeserta).HasColumnType("int(10) unsigned");
+
+                entity.Property(e => e.KabupatenKota).HasColumnType("int(11)");
 
                 entity.Property(e => e.Kendala)
-                    .HasColumnType("varchar(100)")
-                    .HasDefaultValueSql("''");
+                    .HasColumnType("tinytext")
+                    .HasDefaultValueSql("''")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.LinkBerita1)
-                    .HasColumnType("varchar(100)")
-                    .HasDefaultValueSql("''");
+                    .IsRequired()
+                    .HasColumnType("text")
+                    .HasDefaultValueSql("''")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.LinkBerita2)
-                    .HasColumnType("varchar(100)")
-                    .HasDefaultValueSql("''");
+                    .IsRequired()
+                    .HasColumnType("text")
+                    .HasDefaultValueSql("''")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.LinkBerita3)
-                    .HasColumnType("varchar(100)")
-                    .HasDefaultValueSql("''");
+                    .IsRequired()
+                    .HasColumnType("text")
+                    .HasDefaultValueSql("''")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.Nama)
                     .IsRequired()
-                    .HasColumnType("varchar(100)");
+                    .HasColumnType("tinytext")
+                    .HasDefaultValueSql("''")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.NamaPejabatPembuka)
                     .IsRequired()
-                    .HasColumnType("varchar(100)")
-                    .HasDefaultValueSql("''");
+                    .HasColumnType("tinytext")
+                    .HasDefaultValueSql("''")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.PenanggungJawab).HasColumnType("smallint(5) unsigned");
 
                 entity.Property(e => e.TanggalMulai).HasColumnType("datetime");
 
@@ -96,7 +170,15 @@ namespace DeputiTigaKemenpora.Data
 
                 entity.Property(e => e.Tempat)
                     .IsRequired()
-                    .HasColumnType("varchar(100)");
+                    .HasColumnType("tinytext")
+                    .HasDefaultValueSql("''")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.HasOne(d => d.KabupatenKotaNavigation)
+                    .WithMany(p => p.Kegiatan)
+                    .HasForeignKey(d => d.KabupatenKota)
+                    .HasConstraintName("FK_kegiatan_kabupaten_kota");
 
                 entity.HasOne(d => d.PenanggungJawabNavigation)
                     .WithMany(p => p.Kegiatan)
@@ -108,10 +190,42 @@ namespace DeputiTigaKemenpora.Data
             {
                 entity.ToTable("penanggung_jawab");
 
+                entity.Property(e => e.Id).HasColumnType("smallint(5) unsigned");
+
                 entity.Property(e => e.Nama)
                     .IsRequired()
-                    .HasColumnType("varchar(100)");
+                    .HasColumnType("tinytext")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
             });
+
+            modelBuilder.Entity<Provinsi>(entity =>
+            {
+                entity.HasKey(e => e.Kode)
+                    .HasName("PRIMARY");
+
+                entity.ToTable("provinsi");
+
+                entity.Property(e => e.Kode)
+                    .HasColumnType("tinyint(4)")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.Lat).HasColumnType("decimal(9,6)");
+
+                entity.Property(e => e.Long).HasColumnType("decimal(9,6)");
+
+                entity.Property(e => e.Nama)
+                    .IsRequired()
+                    .HasColumnType("tinytext")
+                    .HasDefaultValueSql("''")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            base.OnModelCreating(modelBuilder);
+            OnModelCreatingPartial(modelBuilder);
         }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
