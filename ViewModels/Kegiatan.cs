@@ -41,7 +41,19 @@ namespace DeputiTigaKemenpora.ViewModels
 
         public string NamaPenanggungJawab
         {
-            get => Models?.PenanggungJawabNavigation?.Nama ?? String.Empty;
+            get => Models?.PenanggungJawabNavigation?.Nama ?? string.Empty;
+        }
+
+        [Required(ErrorMessage = "Mohon pilih Kabupaten/Kota.")]
+        public int? KabupatenKota
+        {
+            get => Models.KabupatenKota;
+            set => Models.KabupatenKota = value;
+        }
+
+        public string NamaKabupatenKota
+        {
+            get => Models?.KabupatenKotaNavigation?.Nama ?? string.Empty;
         }
 
         [Required(ErrorMessage = "Nama harus diisi.")]
@@ -118,7 +130,7 @@ namespace DeputiTigaKemenpora.ViewModels
             {
                 if (!value)
                 {
-                    Kendala = String.Empty;
+                    Kendala = string.Empty;
                 }
 
                 Models.AdaKendala = (sbyte)(value ? 1 : 0);
@@ -128,7 +140,7 @@ namespace DeputiTigaKemenpora.ViewModels
         public string Kendala
         {
             get => Models.Kendala;
-            set => Models.Kendala = value ?? String.Empty;
+            set => Models.Kendala = value ?? string.Empty;
         }
 
         public string KendalaView
@@ -139,55 +151,55 @@ namespace DeputiTigaKemenpora.ViewModels
         public string LinkBerita1
         {
             get => Models.LinkBerita1;
-            set => Models.LinkBerita1 = value ?? String.Empty;
+            set => Models.LinkBerita1 = value ?? string.Empty;
         }
 
         public string LinkBerita2
         {
             get => Models.LinkBerita2;
-            set => Models.LinkBerita2 = value ?? String.Empty;
+            set => Models.LinkBerita2 = value ?? string.Empty;
         }
 
         public string LinkBerita3
         {
             get => Models.LinkBerita3;
-            set => Models.LinkBerita3 = value ?? String.Empty;
+            set => Models.LinkBerita3 = value ?? string.Empty;
         }
 
         public string FotoKegiatan1
         {
             get => Models.FotoKegiatan1;
-            set => Models.FotoKegiatan1 = value ?? String.Empty;
+            set => Models.FotoKegiatan1 = value ?? string.Empty;
         }
 
         public string FotoKegiatan2
         {
             get => Models.FotoKegiatan2;
-            set => Models.FotoKegiatan2 = value ?? String.Empty;
+            set => Models.FotoKegiatan2 = value ?? string.Empty;
         }
 
         public string FotoKegiatan3
         {
             get => Models.FotoKegiatan3;
-            set => Models.FotoKegiatan3 = value ?? String.Empty;
+            set => Models.FotoKegiatan3 = value ?? string.Empty;
         }
 
         public string FotoKegiatan4
         {
             get => Models.FotoKegiatan4;
-            set => Models.FotoKegiatan4 = value ?? String.Empty;
+            set => Models.FotoKegiatan4 = value ?? string.Empty;
         }
 
         public string FotoKegiatan5
         {
             get => Models.FotoKegiatan5;
-            set => Models.FotoKegiatan5 = value ?? String.Empty;
+            set => Models.FotoKegiatan5 = value ?? string.Empty;
         }
 
         public string FilePendukung1
         {
             get => Models.FilePendukung1;
-            set => Models.FilePendukung1 = value ?? String.Empty;
+            set => Models.FilePendukung1 = value ?? string.Empty;
         }
 
         public string FilePendukung1View
@@ -198,7 +210,7 @@ namespace DeputiTigaKemenpora.ViewModels
         public string FilePendukung2
         {
             get => Models.FilePendukung2;
-            set => Models.FilePendukung2 = value ?? String.Empty;
+            set => Models.FilePendukung2 = value ?? string.Empty;
         }
 
         public string FilePendukung2View
@@ -209,7 +221,7 @@ namespace DeputiTigaKemenpora.ViewModels
         public string FilePendukung3
         {
             get => Models.FilePendukung3;
-            set => Models.FilePendukung3 = value ?? String.Empty;
+            set => Models.FilePendukung3 = value ?? string.Empty;
         }
 
         public string FilePendukung3View
