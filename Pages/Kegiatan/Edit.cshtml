@@ -13,7 +13,12 @@
 
         <div class="form-group">
             <label class="control-label">Penanggung Jawab</label>
-            <select asp-for="Kegiatan.PenanggungJawab" class ="form-control" asp-items="ViewBag.PenanggungJawab" required>
+            <select 
+                asp-for="Kegiatan.PenanggungJawab" 
+                class ="form-control" 
+                asp-items="@Model.PenanggungJawab" 
+                required
+            >
                 <option value="">Silahkan pilih ...</option>
             </select>
             <span asp-validation-for="Kegiatan.PenanggungJawab" class="text-danger"></span>
@@ -23,6 +28,19 @@
             <label class="control-label">Nama Kegiatan</label>
             <input asp-for="Kegiatan.Nama" class="form-control" />
             <span asp-validation-for="Kegiatan.Nama" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Kabupaten/Kota</label>
+            <select 
+                asp-for="Kegiatan.KabupatenKota" 
+                class ="form-control" 
+                asp-items="@Model.KabupatenKota" 
+                required
+            >
+                <option value="">Silahkan pilih ...</option>
+            </select>
+            <span asp-validation-for="Kegiatan.KabupatenKota" class="text-danger"></span>
         </div>
 
         <div class="form-group">
@@ -132,7 +150,8 @@
 
 @section Scripts 
 {
+    <script src="~/js/kegiatan.js"></script>
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     @{await Html.RenderPartialAsync("_AjaxUploadFileScriptPartial");}
-    @{await Html.RenderPartialAsync("_KegiatanScriptPartial");}
 }
