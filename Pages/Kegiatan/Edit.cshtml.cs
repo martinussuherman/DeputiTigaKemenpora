@@ -5,6 +5,7 @@ using DeputiTigaKemenpora.Identity;
 using Itm.Misc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -27,6 +28,10 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
         [BindProperty]
         public ViewModels.Kegiatan Kegiatan { get; set; } = new ViewModels.Kegiatan();
 
+        public SelectList PenanggungJawab { get; set; }
+
+        public SelectList KabupatenKota { get; set; }
+
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -44,7 +49,8 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
                 return NotFound();
             }
 
-            ViewData["PenanggungJawab"] = await selectListUtilities.PenanggungJawab();
+            PenanggungJawab = await selectListUtilities.PenanggungJawab();
+            KabupatenKota = await selectListUtilities.KabupatenKota();
 
             return Page();
         }
