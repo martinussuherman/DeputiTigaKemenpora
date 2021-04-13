@@ -1,4 +1,5 @@
-using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using DeputiTigaKemenpora.Data;
 using DeputiTigaKemenpora.ViewModels;
 using Itm.Misc;
@@ -23,12 +24,13 @@ namespace DeputiTigaKemenpora.Pages.PenanggungJawab
 
         public IPager<ViewModels.PenanggungJawab> PenanggungJawab { get; set; }
 
-        public void OnGet([FromQuery] int page = 1)
+        public async Task OnGetAsync([FromQuery] int page = 1)
         {
-            PenanggungJawab = _context.PenanggungJawab
+            List<Models.PenanggungJawab> list = await _context.PenanggungJawab
                 .AsNoTracking()
-                .ToPagerList(page, PagerUrlHelper.ItemPerPage)
-                .ViewModelPagerCopy<ViewModels.PenanggungJawab, Models.PenanggungJawab>(page);
+                .ToListAsync();
+            PenanggungJawab = list
+                .ViewModelCopy<ViewModels.PenanggungJawab, Models.PenanggungJawab>(page);
         }
 
         private readonly ILogger<IndexModel> _logger;

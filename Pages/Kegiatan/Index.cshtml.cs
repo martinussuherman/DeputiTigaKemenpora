@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using DeputiTigaKemenpora.Data;
 using DeputiTigaKemenpora.Identity;
 using DeputiTigaKemenpora.ViewModels;
@@ -29,17 +31,17 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
 
         public bool IsUserCanDelete { get; set; }
 
-        public void OnGet([FromQuery] int page = 1)
+        public async Task OnGetAsync([FromQuery] int page = 1)
         {
-            Kegiatan = _context.Kegiatan
+            List<Models.Kegiatan> list = await _context.Kegiatan
                 .Include(e => e.PenanggungJawabNavigation)
                 .OrderBy(e => e.PenanggungJawab)
                 .ThenBy(e => e.Nama)
                 .ThenBy(e => e.Tempat)
                 .AsNoTracking()
-                .ToPagerList(page, PagerUrlHelper.ItemPerPage)
-                .ViewModelPagerCopy<ViewModels.Kegiatan, Models.Kegiatan>(page);
-
+                .ToListAsync();
+            Kegiatan = list
+                .ViewModelCopy<ViewModels.Kegiatan, Models.Kegiatan>(page);
             AuthorizationResult result = _authorizationService.AuthorizeAsync(
                 User,
                 Permissions.Kegiatan.Delete).Result;

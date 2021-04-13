@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using DeputiTigaKemenpora.Data;
 using DeputiTigaKemenpora.ViewModels;
 using Itm.Misc;
@@ -18,12 +20,13 @@ namespace DeputiTigaKemenpora.Pages.Provinsi
 
         public IPager<ViewModels.Provinsi> Provinsi { get; set; }
 
-        public void OnGet([FromQuery] int page = 1)
+        public async Task OnGetAsync([FromQuery] int page = 1)
         {
-            Provinsi = _context.Provinsi
+            List<Models.Provinsi> list = await _context.Provinsi
                 .AsNoTracking()
-                .ToPagerList(page, PagerUrlHelper.ItemPerPage)
-                .ViewModelPagerCopy<ViewModels.Provinsi, Models.Provinsi>(page);
+                .ToListAsync();
+            Provinsi = list
+                .ViewModelCopy<ViewModels.Provinsi, Models.Provinsi>(page);
         }
 
         private readonly ApplicationDbContext _context;
