@@ -12,6 +12,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Deputi Tiga Kemenpora</title>
+    @RenderSection("Stylesheet", required: false)
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
     <!-- Custom fonts for this template -->
@@ -20,8 +22,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700">
-
-    @RenderSection("Stylesheet", required: false)
 
     <!-- Custom styles for this template -->
     <link rel="stylesheet" href="~/css/agency.min.css">
@@ -44,15 +44,31 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" asp-page="/Index" asp-fragment="page-top">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" asp-page="/PenanggungJawab/Index">Penanggung Jawab</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" asp-page="/Kegiatan/Index">Kegiatan</a>
+                        <a class="nav-link" asp-page="/Index" asp-fragment="page-top">Home</a>
                     </li>
 
+                    <li class="nav-item dropdown">
+                        <a 
+                            href="#"
+                            class="nav-link nav-list dropdown-toggle" 
+                            role="button" 
+                            data-toggle="dropdown"
+                            aria-haspopup="true" 
+                            aria-expanded="false"
+                        >
+                            Data
+                        </a>
+
+                        <div class="dropdown-menu">
+                            <a class="nav-link" asp-page="/Provinsi/Index">Provinsi</a>
+                            <a class="nav-link" href="#">Kabupaten/Kota</a>
+                            <a class="nav-link" asp-page="/PenanggungJawab/Index">Penanggung Jawab</a>
+                        </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-page="/Kegiatan/Index">Kegiatan</a>
+                    </li>
 
 @if (SignInManager.IsSignedIn(User))
 {
