@@ -15,7 +15,7 @@ namespace DeputiTigaKemenpora.Models
         public decimal Lat { get; set; }
         public decimal Long { get; set; }
 
-        public virtual Provinsi KodeProvinsiNavigation { get; set; }
+        public virtual Provinsi Provinsi { get; set; }
         public virtual ICollection<Kegiatan> Kegiatan { get; set; }
     }
 }

@@ -40,7 +40,7 @@ namespace DeputiTigaKemenpora.Data
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 
-                entity.HasOne(d => d.KodeProvinsiNavigation)
+                entity.HasOne(d => d.Provinsi)
                     .WithMany(p => p.KabupatenKota)
                     .HasForeignKey(d => d.KodeProvinsi)
                     .OnDelete(DeleteBehavior.ClientSetNull)
