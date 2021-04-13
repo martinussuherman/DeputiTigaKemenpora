@@ -5,8 +5,8 @@ namespace DeputiTigaKemenpora.ViewModels
 {
     public static class PagerCopyHelper
     {
-        public static IPager<T> ViewModelPagerCopy<T, U>(
-            this IPager<U> source,
+        public static IPager<T> ViewModelCopy<T, U>(
+            this IList<U> source,
             int page)
         where T : IModels<U>, new()
         {
