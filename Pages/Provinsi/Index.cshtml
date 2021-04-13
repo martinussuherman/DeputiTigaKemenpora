@@ -1,0 +1,61 @@
+@page
+@model IndexModel
+
+@{
+    Layout = "_CommonLayout";
+}
+
+<div class="card-body mt-5">
+    <p>
+        <a asp-page="Create" class="btn btn-success">Tambah</a>
+    </p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Kode
+                </th>
+                <th>
+                    Nama
+                </th>
+                <th>
+                    Lintang
+                </th>
+                <th>
+                    Bujur
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+@foreach (var item in Model.Provinsi) 
+{
+            <tr>
+                <td>
+                    @item.Kode
+                </td>
+                <td>
+                    @item.Nama
+                </td>
+                <td>
+                    @item.Lat
+                </td>
+                <td>
+                    @item.Long
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Kode" class="btn btn-warning">Ubah</a>
+                    <a asp-page="./Delete" asp-route-id="@item.Kode" class="btn btn-danger">Hapus</a>
+                </td>
+            </tr>
+}
+
+        </tbody>
+    </table>
+
+    @await Html.PartialAsync("_PagingPartial", Model.Provinsi)
+</div>
