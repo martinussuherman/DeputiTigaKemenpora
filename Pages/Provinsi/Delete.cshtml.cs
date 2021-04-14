@@ -7,54 +7,55 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DeputiTigaKemenpora.Pages.Provinsi
 {
-    [Authorize]
-    public class DeleteModel : CustomPageModel
-    {
-        public DeleteModel(ApplicationDbContext context)
-        {
-            _context = context;
-            Title = "Hapus Provinsi";
-            PageTitle = "Provinsi";
-        }
+   [Authorize]
+   public class DeleteModel : CustomPageModel
+   {
+      public DeleteModel(ApplicationDbContext context)
+      {
+         _context = context;
+         Title = "Hapus Provinsi";
+         PageTitle = "Provinsi";
+      }
 
-        [BindProperty]
-        public ViewModels.Provinsi Provinsi { get; set; } = new ViewModels.Provinsi();
+      [BindProperty]
+      public ViewModels.Provinsi Provinsi { get; set; } = new ViewModels.Provinsi();
 
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+      public async Task<IActionResult> OnGetAsync(int? id)
+      {
+         if (id == null)
+         {
+            return NotFound();
+         }
 
-            Provinsi.Models = await _context.Provinsi
-                .FirstOrDefaultAsync(m => m.Kode == id);
+         Provinsi.Models = await _context.Provinsi
+            .FirstOrDefaultAsync(m => m.Kode == id);
 
-            if (Provinsi.Models == null)
-            {
-                return NotFound();
-            }
-            return Page();
-        }
+         if (Provinsi.Models == null)
+         {
+            return NotFound();
+         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+         return Page();
+      }
 
-            Provinsi.Models = await _context.Provinsi.FindAsync(id);
+      public async Task<IActionResult> OnPostAsync(int? id)
+      {
+         if (id == null)
+         {
+            return NotFound();
+         }
 
-            if (Provinsi.Models != null)
-            {
-                _context.Provinsi.Remove(Provinsi.Models);
-                await _context.SaveChangesAsync();
-            }
+         Provinsi.Models = await _context.Provinsi.FindAsync(id);
 
-            return RedirectToPage("./Index");
-        }
+         if (Provinsi.Models != null)
+         {
+            _context.Provinsi.Remove(Provinsi.Models);
+            await _context.SaveChangesAsync();
+         }
 
-        private readonly ApplicationDbContext _context;
-    }
+         return RedirectToPage("./Index");
+      }
+
+      private readonly ApplicationDbContext _context;
+   }
 }
