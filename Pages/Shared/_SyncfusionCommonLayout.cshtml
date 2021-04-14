@@ -1,0 +1,38 @@
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="bg-page-detail">
+    <div class="pt-4 pb-5">
+        <div class="container-fluid">
+            <div class="row row-cards card mx-md-5">
+			    <div class="card-header pl-5">
+				    <h4 class="card-title mlm-15">@ViewData["Title"]</h4>
+			    </div>
+
+                @RenderBody()
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Stylesheet
+{
+    <!-- Syncfusion Essential JS 2 Styles -->
+    <link rel="stylesheet" href="~/css/bootstrap4.css">
+
+    @RenderSection("Stylesheet", required: false)
+}
+
+@section Scripts
+{
+    <!-- Syncfusion Essential JS 2 Scripts -->
+    <script src="~/js/ej2.min.js"></script>
+    <script src="~/js/kegiatan.js"></script>
+
+    <!-- Syncfusion Essential JS 2 ScriptManager -->
+    <ejs-scripts></ejs-scripts>
+
+    @RenderSection("Scripts", required: false)
+}
