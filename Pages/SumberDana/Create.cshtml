@@ -1,0 +1,17 @@
+@page
+@model CreateModel
+
+@{
+   Layout = "_SyncfusionCommonLayout";
+}
+
+<div class="card-body">
+   <form method="post">
+      <partial name="SumberDanaEditPartial" model="@Model" />
+   </form>
+</div>
+
+@section Scripts
+{
+   <partial name="_ValidationScriptsPartial" />
+}
