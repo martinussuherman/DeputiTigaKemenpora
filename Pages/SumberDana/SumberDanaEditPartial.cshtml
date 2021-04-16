@@ -1,0 +1,18 @@
+@model ISumberDanaEditModel
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<div class="form-group">
+   <label class="control-label">Nama</label>
+   <ejs-textbox
+      id="nama"
+      ejs-for="SumberDana.Nama"
+      placeholder="Nama Sumber Dana"
+      aria-mycontrol="ej2"
+   >
+   </ejs-textbox>
+   <span asp-validation-for="SumberDana.Nama" class="text-danger"></span>
+</div>
+
+<input type="submit" value="Simpan" class="btn btn-outline-secondary" />
+<a asp-page="./Index" class="btn btn-outline-info">Kembali</a>
