@@ -2,25 +2,16 @@
 @model CreateModel
 
 @{
-    Layout = "_CommonLayout";
+   Layout = "_CommonLayout";
 }
 
 <div class="card-body">
-    <form method="post">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-        <div class="form-group">
-            <label class="control-label">Nama</label>
-            <input asp-for="PenanggungJawab.Nama" class="form-control" />
-            <span asp-validation-for="PenanggungJawab.Nama" class="text-danger"></span>
-        </div>
-
-        <input type="submit" value="Simpan" class="btn btn-primary" />
-        <a asp-page="./Index" class="btn btn-warning">Kembali</a>
-    </form>
+   <form method="post">
+      <partial name="PenanggungJawabEditPartial" model="@Model" />
+   </form>
 </div>
 
-@section Scripts 
+@section Scripts
 {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+   <partial name="_ValidationScriptsPartial" />
 }
