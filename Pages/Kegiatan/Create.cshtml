@@ -3,133 +3,135 @@
 @model CreateModel
 
 @{
-    Layout = "_CommonLayout";
+   Layout = "_CommonLayout";
 }
 
 <div class="card-body">
-    <form method="post">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+   <form method="post">
+      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <div class="form-group">
-            <label class="control-label">Penanggung Jawab</label>
-            <select asp-for="Kegiatan.PenanggungJawab" class ="form-control" asp-items="ViewBag.PenanggungJawab" required>
-                <option value="">Silahkan pilih ...</option>
-            </select>
-            <span asp-validation-for="Kegiatan.PenanggungJawab" class="text-danger"></span>
-        </div>
+      <div class="form-group">
+         <label class="control-label">Penanggung Jawab</label>
+         <select asp-for="Kegiatan.PenanggungJawab" class="form-control" asp-items="ViewBag.PenanggungJawab" required>
+            <option value="">Silahkan pilih ...</option>
+         </select>
+         <span asp-validation-for="Kegiatan.PenanggungJawab" class="text-danger"></span>
+      </div>
 
-        <div class="form-group">
-            <label class="control-label">Nama Kegiatan</label>
-            <input asp-for="Kegiatan.Nama" class="form-control" />
-            <span asp-validation-for="Kegiatan.Nama" class="text-danger"></span>
-        </div>
+      <div class="form-group">
+         <label class="control-label">Nama Kegiatan</label>
+         <input asp-for="Kegiatan.Nama" class="form-control" />
+         <span asp-validation-for="Kegiatan.Nama" class="text-danger"></span>
+      </div>
 
-        <div class="form-group">
-            <label class="control-label">Tempat</label>
-            <input asp-for="Kegiatan.Tempat" class="form-control" />
-            <span asp-validation-for="Kegiatan.Tempat" class="text-danger"></span>
-        </div>
+      <div class="form-group">
+         <label class="control-label">Tempat</label>
+         <input asp-for="Kegiatan.Tempat" class="form-control" />
+         <span asp-validation-for="Kegiatan.Tempat" class="text-danger"></span>
+      </div>
 
-        <div class="form-group">
-            <label class="control-label">Tanggal Mulai</label>
-            <input type="date" value="@Model.Kegiatan.TanggalMulai" asp-for="Kegiatan.TanggalMulai" class="form-control" />
-            <span asp-validation-for="Kegiatan.TanggalMulai" class="text-danger"></span>
-        </div>
+      <div class="form-group">
+         <label class="control-label">Tanggal Mulai</label>
+         <input type="date" value="@Model.Kegiatan.TanggalMulai" asp-for="Kegiatan.TanggalMulai" class="form-control" />
+         <span asp-validation-for="Kegiatan.TanggalMulai" class="text-danger"></span>
+      </div>
 
-        <div class="form-group">
-            <label class="control-label">Tanggal Selesai</label>
-            <input type="date" value="@Model.Kegiatan.TanggalSelesai" asp-for="Kegiatan.TanggalSelesai" class="form-control" />
-            <span asp-validation-for="Kegiatan.TanggalSelesai" class="text-danger"></span>
-        </div>
+      <div class="form-group">
+         <label class="control-label">Tanggal Selesai</label>
+         <input type="date" value="@Model.Kegiatan.TanggalSelesai" asp-for="Kegiatan.TanggalSelesai"
+            class="form-control" />
+         <span asp-validation-for="Kegiatan.TanggalSelesai" class="text-danger"></span>
+      </div>
 
-        <div class="form-group">
-            <label class="control-label">Nama Pejabat Pembuka</label>
-            <input asp-for="Kegiatan.NamaPejabatPembuka" class="form-control" />
-            <span asp-validation-for="Kegiatan.NamaPejabatPembuka" class="text-danger"></span>
-        </div>
+      <div class="form-group">
+         <label class="control-label">Nama Pejabat Pembuka</label>
+         <input asp-for="Kegiatan.NamaPejabatPembuka" class="form-control" />
+         <span asp-validation-for="Kegiatan.NamaPejabatPembuka" class="text-danger"></span>
+      </div>
 
-        <div class="form-group">
-            <label class="control-label">Jumlah Peserta</label>
-            <input asp-for="Kegiatan.JumlahPeserta" class="form-control" />
-            <span asp-validation-for="Kegiatan.JumlahPeserta" class="text-danger"></span>
-        </div>
+      <div class="form-group">
+         <label class="control-label">Jumlah Peserta</label>
+         <input asp-for="Kegiatan.JumlahPeserta" class="form-control" />
+         <span asp-validation-for="Kegiatan.JumlahPeserta" class="text-danger"></span>
+      </div>
 
-        <div class="form-check">
-            <input type="checkbox" asp-for="Kegiatan.AdaKendala" class="form-check-input ada-kendala" />
-            <label class="form-check-label">Kendala</label>
-        </div>
+      <div class="form-check">
+         <input type="checkbox" asp-for="Kegiatan.AdaKendala" class="form-check-input ada-kendala" />
+         <label class="form-check-label">Kendala</label>
+      </div>
 
-        <div class="form-group">
-            <input asp-for="Kegiatan.Kendala" class="form-control kendala" disabled />
-            <span asp-validation-for="Kegiatan.Kendala" class="text-danger"></span>
-        </div>
+      <div class="form-group">
+         <input asp-for="Kegiatan.Kendala" class="form-control kendala" disabled />
+         <span asp-validation-for="Kegiatan.Kendala" class="text-danger"></span>
+      </div>
 
-        <div class="form-group">
-            <label class="control-label">Link Berita 1</label>
-            <input type="url" asp-for="Kegiatan.LinkBerita1" class="form-control" />
-            <span asp-validation-for="Kegiatan.LinkBerita1" class="text-danger"></span>
-        </div>
+      <div class="form-group">
+         <label class="control-label">Link Berita 1</label>
+         <input type="url" asp-for="Kegiatan.LinkBerita1" class="form-control" />
+         <span asp-validation-for="Kegiatan.LinkBerita1" class="text-danger"></span>
+      </div>
 
-        <div class="form-group">
-            <label class="control-label">Link Berita 2</label>
-            <input type="url" asp-for="Kegiatan.LinkBerita2" class="form-control" />
-            <span asp-validation-for="Kegiatan.LinkBerita2" class="text-danger"></span>
-        </div>
+      <div class="form-group">
+         <label class="control-label">Link Berita 2</label>
+         <input type="url" asp-for="Kegiatan.LinkBerita2" class="form-control" />
+         <span asp-validation-for="Kegiatan.LinkBerita2" class="text-danger"></span>
+      </div>
 
-        <div class="form-group">
-            <label class="control-label">Link Berita 3</label>
-            <input type="url" asp-for="Kegiatan.LinkBerita3" class="form-control" />
-            <span asp-validation-for="Kegiatan.LinkBerita3" class="text-danger"></span>
-        </div>
+      <div class="form-group">
+         <label class="control-label">Link Berita 3</label>
+         <input type="url" asp-for="Kegiatan.LinkBerita3" class="form-control" />
+         <span asp-validation-for="Kegiatan.LinkBerita3" class="text-danger"></span>
+      </div>
 
-        <div class="form-group foto-kegiatan">
-            <label class="control-label">Foto Kegiatan 1</label>
-            @await Html.PartialAsync("_FileUploadPartial", Model.Kegiatan.FotoKegiatan1Upload)
-        </div>
+      <div class="form-group foto-kegiatan">
+         <label class="control-label">Foto Kegiatan 1</label>
+         @await Html.PartialAsync("_FileUploadPartial", Model.Kegiatan.FotoKegiatan1Upload)
+      </div>
 
-        <div class="form-group foto-kegiatan">
-            <label class="control-label">Foto Kegiatan 2</label>
-            @await Html.PartialAsync("_FileUploadPartial", Model.Kegiatan.FotoKegiatan2Upload)
-        </div>
+      <div class="form-group foto-kegiatan">
+         <label class="control-label">Foto Kegiatan 2</label>
+         @await Html.PartialAsync("_FileUploadPartial", Model.Kegiatan.FotoKegiatan2Upload)
+      </div>
 
-        <div class="form-group foto-kegiatan">
-            <label class="control-label">Foto Kegiatan 3</label>
-            @await Html.PartialAsync("_FileUploadPartial", Model.Kegiatan.FotoKegiatan3Upload)
-        </div>
+      <div class="form-group foto-kegiatan">
+         <label class="control-label">Foto Kegiatan 3</label>
+         @await Html.PartialAsync("_FileUploadPartial", Model.Kegiatan.FotoKegiatan3Upload)
+      </div>
 
-        <div class="form-group foto-kegiatan">
-            <label class="control-label">Foto Kegiatan 4</label>
-            @await Html.PartialAsync("_FileUploadPartial", Model.Kegiatan.FotoKegiatan4Upload)
-        </div>
+      <div class="form-group foto-kegiatan">
+         <label class="control-label">Foto Kegiatan 4</label>
+         @await Html.PartialAsync("_FileUploadPartial", Model.Kegiatan.FotoKegiatan4Upload)
+      </div>
 
-        <div class="form-group foto-kegiatan">
-            <label class="control-label">Foto Kegiatan 5</label>
-            @await Html.PartialAsync("_FileUploadPartial", Model.Kegiatan.FotoKegiatan5Upload)
-        </div>
+      <div class="form-group foto-kegiatan">
+         <label class="control-label">Foto Kegiatan 5</label>
+         @await Html.PartialAsync("_FileUploadPartial", Model.Kegiatan.FotoKegiatan5Upload)
+      </div>
 
-        <div class="form-group file-pendukung">
-            <label class="control-label">File Pendukung 1</label>
-            @await Html.PartialAsync("_FileUploadPartial", Model.Kegiatan.FilePendukung1Upload)
-        </div>
+      <div class="form-group file-pendukung">
+         <label class="control-label">File Pendukung 1</label>
+         @await Html.PartialAsync("_FileUploadPartial", Model.Kegiatan.FilePendukung1Upload)
+      </div>
 
-        <div class="form-group file-pendukung">
-            <label class="control-label">File Pendukung 2</label>
-            @await Html.PartialAsync("_FileUploadPartial", Model.Kegiatan.FilePendukung2Upload)
-        </div>
+      <div class="form-group file-pendukung">
+         <label class="control-label">File Pendukung 2</label>
+         @await Html.PartialAsync("_FileUploadPartial", Model.Kegiatan.FilePendukung2Upload)
+      </div>
 
-        <div class="form-group file-pendukung">
-            <label class="control-label">File Pendukung 3</label>
-            @await Html.PartialAsync("_FileUploadPartial", Model.Kegiatan.FilePendukung3Upload)
-        </div>
+      <div class="form-group file-pendukung">
+         <label class="control-label">File Pendukung 3</label>
+         @await Html.PartialAsync("_FileUploadPartial", Model.Kegiatan.FilePendukung3Upload)
+      </div>
 
-        <input type="submit" value="Simpan" class="btn btn-primary" />
-        <a asp-page="./Index" class="btn btn-warning">Kembali</a>
-    </form>
+      <input type="submit" value="Simpan" class="btn btn-primary" />
+      <a asp-page="./Index" class="btn btn-warning">Kembali</a>
+   </form>
 </div>
 
-@section Scripts 
+@section Scripts
 {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    @{await Html.RenderPartialAsync("_AjaxUploadFileScriptPartial");}
-    @{await Html.RenderPartialAsync("_KegiatanScriptPartial");}
+   <script src="~/js/kegiatan.js"></script>
+
+   <partial name="_ValidationScriptsPartial" />
+   <partial name="_AjaxUploadFileScriptPartial" />
 }
