@@ -6,7 +6,7 @@ namespace DeputiTigaKemenpora.Models
    {
       public uint Id { get; set; }
       public ushort? PenanggungJawab { get; set; }
-      public int? KabupatenKota { get; set; }
+      public ushort? KabupatenKotaId { get; set; }
       public byte? SumberDana { get; set; }
       public string Nama { get; set; }
       public string Tempat { get; set; }
@@ -28,7 +28,7 @@ namespace DeputiTigaKemenpora.Models
       public string FilePendukung2 { get; set; }
       public string FilePendukung3 { get; set; }
 
-      public virtual KabupatenKota KabupatenKotaNavigation { get; set; }
+      public virtual KabupatenKota KabupatenKota { get; set; }
       public virtual PenanggungJawab PenanggungJawabNavigation { get; set; }
       public virtual SumberDana SumberDanaNavigation { get; set; }
    }
