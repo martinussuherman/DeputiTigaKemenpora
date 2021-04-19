@@ -36,7 +36,7 @@
          {
             <tr>
                <td>
-                  @item.Kode
+                  @item.Id
                </td>
                <td>
                   @item.Nama
@@ -48,8 +48,8 @@
                   @item.Long
                </td>
                <td>
-                  <a asp-page="./Edit" asp-route-id="@item.Kode" class="btn btn-warning">Ubah</a>
-                  <a asp-page="./Delete" asp-route-id="@item.Kode" class="btn btn-danger">Hapus</a>
+                  <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-warning">Ubah</a>
+                  <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Hapus</a>
                </td>
             </tr>
          }
