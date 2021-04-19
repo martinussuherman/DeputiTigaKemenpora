@@ -1,68 +1,62 @@
-using System;
 using System.Threading.Tasks;
 using DeputiTigaKemenpora.Data;
 using Itm.Misc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace DeputiTigaKemenpora.Pages.PenanggungJawab
 {
-    [Authorize]
-    public class DeleteModel : CustomPageModel
-    {
-        public DeleteModel(
-            ILogger<DeleteModel> logger,
-            ApplicationDbContext context)
-        {
-            _logger = logger;
-            _context = context;
-            Title = "Hapus Penanggung Jawab";
-            PageTitle = "Penanggung Jawab";
-        }
+   [Authorize]
+   public class DeleteModel : CustomPageModel
+   {
+      public DeleteModel(ApplicationDbContext context)
+      {
+         _context = context;
+         Title = "Hapus Penanggung Jawab";
+         PageTitle = "Penanggung Jawab";
+      }
 
-        [BindProperty]
-        public ViewModels.PenanggungJawab PenanggungJawab { get; set; } = new ViewModels.PenanggungJawab();
+      [BindProperty]
+      public ViewModels.PenanggungJawab PenanggungJawab { get; set; } = new ViewModels.PenanggungJawab();
 
-        public async Task<IActionResult> OnGetAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+      public async Task<IActionResult> OnGetAsync(int? id)
+      {
+         if (id == null)
+         {
+            return NotFound();
+         }
 
-            PenanggungJawab.Models = await _context.PenanggungJawab
-                .AsNoTracking()
-                .FirstOrDefaultAsync(e => e.Id == id);
+         PenanggungJawab.Models = await _context.PenanggungJawab
+            .AsNoTracking()
+            .FirstOrDefaultAsync(e => e.Id == id);
 
-            if (PenanggungJawab.Models == null)
-            {
-                return NotFound();
-            }
+         if (PenanggungJawab.Models == null)
+         {
+            return NotFound();
+         }
 
-            return Page();
-        }
+         return Page();
+      }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+      public async Task<IActionResult> OnPostAsync(int? id)
+      {
+         if (id == null)
+         {
+            return NotFound();
+         }
 
-            PenanggungJawab.Models = await _context.PenanggungJawab.FindAsync((ushort) id);
+         PenanggungJawab.Models = await _context.PenanggungJawab.FindAsync((ushort)id);
 
-            if (PenanggungJawab.Models != null)
-            {
-                _context.PenanggungJawab.Remove(PenanggungJawab.Models);
-                await _context.SaveChangesAsync();
-            }
+         if (PenanggungJawab.Models != null)
+         {
+            _context.PenanggungJawab.Remove(PenanggungJawab.Models);
+            await _context.SaveChangesAsync();
+         }
 
-            return RedirectToPage("./Index");
-        }
+         return RedirectToPage("./Index");
+      }
 
-        private readonly ILogger<DeleteModel> _logger;
-        private readonly ApplicationDbContext _context;
-    }
+      private readonly ApplicationDbContext _context;
+   }
 }
