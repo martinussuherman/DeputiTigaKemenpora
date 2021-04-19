@@ -29,7 +29,7 @@ namespace DeputiTigaKemenpora.Pages.Provinsi
          }
 
          Provinsi.Models = await _context.Provinsi
-            .FirstOrDefaultAsync(m => m.Kode == id);
+            .FirstOrDefaultAsync(m => m.Id == id);
 
          if (Provinsi.Models == null)
          {
@@ -54,7 +54,7 @@ namespace DeputiTigaKemenpora.Pages.Provinsi
          }
          catch (DbUpdateConcurrencyException)
          {
-            if (!Exists(Provinsi.Kode))
+            if (!Exists(Provinsi.Id))
             {
                return NotFound();
             }
@@ -69,7 +69,7 @@ namespace DeputiTigaKemenpora.Pages.Provinsi
 
       private bool Exists(int id)
       {
-         return _context.Provinsi.Any(e => e.Kode == id);
+         return _context.Provinsi.Any(e => e.Id == id);
       }
 
       private readonly ApplicationDbContext _context;

@@ -28,7 +28,7 @@ namespace DeputiTigaKemenpora.Pages.Provinsi
          }
 
          Provinsi.Models = await _context.Provinsi
-            .FirstOrDefaultAsync(m => m.Kode == id);
+            .FirstOrDefaultAsync(m => m.Id == id);
 
          if (Provinsi.Models == null)
          {
