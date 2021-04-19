@@ -18,17 +18,12 @@ namespace DeputiTigaKemenpora.Data
       {
          modelBuilder.Entity<KabupatenKota>(entity =>
          {
-            entity.HasKey(e => e.Kode)
-               .HasName("PRIMARY");
-
             entity.ToTable("kabupaten_kota");
 
-            entity.HasIndex(e => e.KodeProvinsi)
+            entity.HasIndex(e => e.ProvinsiId)
                .HasName("FK_kabupaten_kota_provinsi");
 
-            entity.Property(e => e.Kode).HasColumnType("int(11)");
-
-            entity.Property(e => e.KodeProvinsi).HasColumnType("tinyint(4)");
+            entity.Property(e => e.Id).HasColumnType("smallint(5) unsigned");
 
             entity.Property(e => e.Lat).HasColumnType("decimal(9,6)");
 
@@ -40,13 +35,21 @@ namespace DeputiTigaKemenpora.Data
                .HasDefaultValueSql("''")
                .HasCharSet("utf8")
                .HasCollation("utf8_general_ci");
+
+            entity.Property(e => e.ProvinsiId).HasColumnType("tinyint(4) unsigned");
+
+            entity.HasOne(d => d.Provinsi)
+               .WithMany(p => p.KabupatenKota)
+               .HasForeignKey(d => d.ProvinsiId)
+               .OnDelete(DeleteBehavior.SetNull)
+               .HasConstraintName("FK_kabupaten_kota_provinsi");
          });
 
          modelBuilder.Entity<Kegiatan>(entity =>
          {
             entity.ToTable("kegiatan");
 
-            entity.HasIndex(e => e.KabupatenKota)
+            entity.HasIndex(e => e.KabupatenKotaId)
                .HasName("FK_kegiatan_kabupaten_kota");
 
             entity.HasIndex(e => e.PenanggungJawab)
@@ -117,7 +120,7 @@ namespace DeputiTigaKemenpora.Data
 
             entity.Property(e => e.JumlahPeserta).HasColumnType("int(10) unsigned");
 
-            entity.Property(e => e.KabupatenKota).HasColumnType("int(11)");
+            entity.Property(e => e.KabupatenKotaId).HasColumnType("smallint(5) unsigned");
 
             entity.Property(e => e.Kendala)
                .HasColumnType("tinytext")
@@ -175,19 +178,22 @@ namespace DeputiTigaKemenpora.Data
                .HasCharSet("utf8")
                .HasCollation("utf8_general_ci");
 
-            entity.HasOne(d => d.KabupatenKotaNavigation)
+            entity.HasOne(d => d.KabupatenKota)
                .WithMany(p => p.Kegiatan)
-               .HasForeignKey(d => d.KabupatenKota)
+               .HasForeignKey(d => d.KabupatenKotaId)
+               .OnDelete(DeleteBehavior.SetNull)
                .HasConstraintName("FK_kegiatan_kabupaten_kota");
 
             entity.HasOne(d => d.PenanggungJawabNavigation)
                .WithMany(p => p.Kegiatan)
                .HasForeignKey(d => d.PenanggungJawab)
+               .OnDelete(DeleteBehavior.SetNull)
                .HasConstraintName("FK_kegiatan_penanggung_jawab");
 
             entity.HasOne(d => d.SumberDanaNavigation)
                .WithMany(p => p.Kegiatan)
                .HasForeignKey(d => d.SumberDana)
+               .OnDelete(DeleteBehavior.SetNull)
                .HasConstraintName("FK_kegiatan_sumber_dana");
          });
 
@@ -206,14 +212,11 @@ namespace DeputiTigaKemenpora.Data
 
          modelBuilder.Entity<Provinsi>(entity =>
          {
-            entity.HasKey(e => e.Kode)
-               .HasName("PRIMARY");
-
             entity.ToTable("provinsi");
 
-            entity.Property(e => e.Kode)
-               .HasColumnType("tinyint(4)")
-               .ValueGeneratedNever();
+            entity.Property(e => e.Id)
+               .HasColumnType("tinyint(4) unsigned")
+               .ValueGeneratedOnAdd();
 
             entity.Property(e => e.Lat).HasColumnType("decimal(9,6)");
 
