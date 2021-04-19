@@ -2,66 +2,66 @@
 @model IndexModel
 
 @{
-    Layout = "_CommonLayout";
+   Layout = "_CommonLayout";
 }
 
 <div class="card-body">
-    <p>
-        <a asp-page="Create" class="btn btn-success">Tambah</a>
-    </p>
+   <p>
+      <a asp-page="Create" class="btn btn-success">Tambah</a>
+   </p>
 
-    <table class="table">
-        <thead>
+   <table class="table">
+      <thead>
+         <tr>
+            <th>
+               Kode
+            </th>
+            <th>
+               Nama
+            </th>
+            <th>
+               Provinsi
+            </th>
+            <th>
+               Lintang
+            </th>
+            <th>
+               Bujur
+            </th>
+            <th>
+            </th>
+         </tr>
+      </thead>
+
+      <tbody>
+
+         @foreach (var item in Model.KabupatenKota)
+         {
             <tr>
-                <th>
-                    Kode
-                </th>
-                <th>
-                    Nama
-                </th>
-                <th>
-                    Provinsi
-                </th>
-                <th>
-                    Lintang
-                </th>
-                <th>
-                    Bujur
-                </th>
-                <th>
-                </th>
+               <td>
+                  @item.Id
+               </td>
+               <td>
+                  @item.Nama
+               </td>
+               <td>
+                  @item.NamaProvinsi
+               </td>
+               <td>
+                  @item.Lat
+               </td>
+               <td>
+                  @item.Long
+               </td>
+               <td>
+                  <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-warning">Ubah</a>
+                  <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Hapus</a>
+               </td>
             </tr>
-        </thead>
+         }
 
-        <tbody>
+      </tbody>
+   </table>
 
-@foreach (var item in Model.KabupatenKota) 
-{
-            <tr>
-                <td>
-                    @item.Kode
-                </td>
-                <td>
-                    @item.Nama
-                </td>
-                <td>
-                    @item.NamaProvinsi
-                </td>
-                <td>
-                    @item.Lat
-                </td>
-                <td>
-                    @item.Long
-                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Kode" class="btn btn-warning">Ubah</a>
-                    <a asp-page="./Delete" asp-route-id="@item.Kode" class="btn btn-danger">Hapus</a>
-                </td>
-            </tr>
-}
-
-        </tbody>
-    </table>
-
-    @await Html.PartialAsync("_PagingPartial", Model.KabupatenKota)
+   @await Html.PartialAsync("_PagingPartial", Model.KabupatenKota)
 </div>
