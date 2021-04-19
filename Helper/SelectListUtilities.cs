@@ -9,68 +9,71 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DeputiTigaKemenpora
 {
-    public class SelectListUtilities
-    {
-        public SelectListUtilities(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+   public class SelectListUtilities
+   {
+      public SelectListUtilities(ApplicationDbContext context)
+      {
+         _context = context;
+      }
 
-        public async Task<SelectList> PenanggungJawab()
-        {
-            IList<PenanggungJawab> list = await _context.PenanggungJawab
-                .Where(p => p.Id > 0)
-                .OrderBy(p => p.Nama)
-                .AsNoTracking()
-                .ToListAsync();
+      public async Task<SelectList> PenanggungJawab()
+      {
+         IList<PenanggungJawab> list = await _context.PenanggungJawab
+            .Where(p => p.Id > 0)
+            .OrderBy(p => p.Nama)
+            .AsNoTracking()
+            .ToListAsync();
 
-            return new SelectList(list, "Id", "Nama");
-        }
+         return new SelectList(list, "Id", "Nama");
+      }
 
-        public async Task<SelectList> Provinsi()
-        {
-            IList<Provinsi> list = await _context.Provinsi
-                .Where(p => p.Kode > 0)
-                .OrderBy(p => p.Nama)
-                .AsNoTracking()
-                .ToListAsync();
+      public async Task<SelectList> Provinsi()
+      {
+         IList<Provinsi> list = await _context.Provinsi
+            .Where(p => p.Id > 0)
+            .OrderBy(p => p.Nama)
+            .AsNoTracking()
+            .ToListAsync();
 
-            return new SelectList(list, "Kode", "Nama");
-        }
+         return new SelectList(list, "Kode", "Nama");
+      }
 
-        public async Task<SelectList> KabupatenKota()
-        {
-            IList<KabupatenKota> list = await _context.KabupatenKota
-                .Where(p => p.Kode > 0)
-                .OrderBy(p => p.Nama)
-                .AsNoTracking()
-                .ToListAsync();
+      public async Task<SelectList> KabupatenKota()
+      {
+         return new SelectList(await KabupatenKotaList(), "Kode", "Nama");
+      }
 
-            return new SelectList(list, "Kode", "Nama");
-        }
+      public async Task<List<KabupatenKota>> KabupatenKotaList()
+      {
+         return await _context.KabupatenKota
+            .Where(p => p.Id > 0)
+            .OrderBy(p => p.Nama)
+            .AsNoTracking()
+            .ToListAsync();
+      }
 
-        public async Task<SelectList> UserRoles(IdentityDbContext context)
-        {
-            List<ApplicationRole> list = await context.Roles
-                .OrderBy(e => e.Name)
-                .AsNoTracking()
-                .ToListAsync();
+      public async Task<SelectList> UserRoles(IdentityDbContext context)
+      {
+         List<ApplicationRole> list = await context.Roles
+            .OrderBy(e => e.Name)
+            .AsNoTracking()
+            .ToListAsync();
 
-            return new SelectList(list, "Name", "Name");
-        }
+         return new SelectList(list, "Name", "Name");
+      }
 
-        public async Task<SelectList> TahunSummaryKegiatan()
-        {
-            List<int> list = await _context.Kegiatan
-                .OrderByDescending(e => e.TanggalMulai.Year)
-                .AsNoTracking()
-                .Select(e => e.TanggalMulai.Year)
-                .Distinct()
-                .ToListAsync();
+      public async Task<SelectList> TahunSummaryKegiatan()
+      {
+         List<int> list = await _context.Kegiatan
+            .OrderByDescending(e => e.TanggalMulai.Year)
+            .AsNoTracking()
+            .Select(e => e.TanggalMulai.Year)
+            .Distinct()
+            .ToListAsync();
 
-            return new SelectList(list);
-        }
+         return new SelectList(list);
+      }
 
-        private readonly ApplicationDbContext _context;
-    }
+      private readonly ApplicationDbContext _context;
+   }
 }
