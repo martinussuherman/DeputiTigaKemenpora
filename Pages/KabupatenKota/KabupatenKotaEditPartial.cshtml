@@ -1,0 +1,31 @@
+@model IKabupatenKotaEditModel
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<div class="form-group">
+   <label class="control-label">Nama</label>
+   <input asp-for="KabupatenKota.Nama" class="form-control" />
+   <span asp-validation-for="KabupatenKota.Nama" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+   <label class="control-label">Lintang</label>
+   <input type="number" asp-for="KabupatenKota.Lat" class="form-control" />
+   <span asp-validation-for="KabupatenKota.Lat" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+   <label class="control-label">Bujur</label>
+   <input type="number" asp-for="KabupatenKota.Long" class="form-control" />
+   <span asp-validation-for="KabupatenKota.Long" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+   <label class="control-label">Provinsi</label>
+   <select asp-for="KabupatenKota.IdProvinsi" asp-items="@Model.Provinsi" class="form-control">
+   </select>
+   <span asp-validation-for="KabupatenKota.IdProvinsi" class="text-danger"></span>
+</div>
+
+<input type="submit" value="Simpan" class="btn btn-outline-secondary" />
+<a asp-page="./Index" class="btn btn-outline-info">Kembali</a>
