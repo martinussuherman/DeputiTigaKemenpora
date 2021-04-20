@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace DeputiTigaKemenpora.Pages.Kegiatan
 {
    [Authorize(Permissions.Kegiatan.Edit)]
-   public class EditModel : CustomPageModel
+   public class EditModel : CustomPageModel, IKegiatanEditModel
    {
       public EditModel(ApplicationDbContext context)
       {
@@ -30,6 +30,8 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
       public SelectList KabupatenKota { get; set; }
 
       public SelectList SumberDana { get; set; }
+
+      public List<Models.KabupatenKota> KabupatenKotaList { get; set; }
 
       public async Task<IActionResult> OnGetAsync(int? id)
       {
@@ -51,6 +53,7 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
          PenanggungJawab = await selectListUtilities.PenanggungJawab();
          KabupatenKota = await selectListUtilities.KabupatenKota();
          SumberDana = await selectListUtilities.SumberDana();
+         KabupatenKotaList = await selectListUtilities.KabupatenKotaList();
 
          return Page();
       }

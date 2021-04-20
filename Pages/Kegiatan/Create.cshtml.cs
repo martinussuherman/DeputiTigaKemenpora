@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace DeputiTigaKemenpora.Pages.Kegiatan
 {
    [Authorize(Permissions.Kegiatan.Create)]
-   public class CreateModel : CustomPageModel
+   public class CreateModel : CustomPageModel, IKegiatanEditModel
    {
       public CreateModel(ApplicationDbContext context)
       {
