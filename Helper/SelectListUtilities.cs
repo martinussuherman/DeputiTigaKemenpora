@@ -40,18 +40,21 @@ namespace DeputiTigaKemenpora
 
       public async Task<SelectList> Provinsi()
       {
-         IList<Provinsi> list = await _context.Provinsi
-            .Where(p => p.Id > 0)
-            .OrderBy(p => p.Nama)
-            .AsNoTracking()
-            .ToListAsync();
-
-         return new SelectList(list, "Kode", "Nama");
+         return new SelectList(await ProvinsiList(), "Id", "Nama");
       }
 
       public async Task<SelectList> KabupatenKota()
       {
-         return new SelectList(await KabupatenKotaList(), "Kode", "Nama");
+         return new SelectList(await KabupatenKotaList(), "Id", "Nama");
+      }
+
+      public async Task<List<Provinsi>> ProvinsiList()
+      {
+         return await _context.Provinsi
+            .Where(p => p.Id > 0)
+            .OrderBy(p => p.Nama)
+            .AsNoTracking()
+            .ToListAsync();
       }
 
       public async Task<List<KabupatenKota>> KabupatenKotaList()
