@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DeputiTigaKemenpora.Pages.KabupatenKota
 {
-   public class EditModel : CustomPageModel
+   public class EditModel : CustomPageModel, IKabupatenKotaEditModel
    {
       public EditModel(ApplicationDbContext context)
       {

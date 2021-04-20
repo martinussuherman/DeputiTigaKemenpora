@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace DeputiTigaKemenpora.Pages.KabupatenKota
 {
    [Authorize]
-   public class CreateModel : CustomPageModel
+   public class CreateModel : CustomPageModel, IKabupatenKotaEditModel
    {
       public CreateModel(ApplicationDbContext context)
       {
