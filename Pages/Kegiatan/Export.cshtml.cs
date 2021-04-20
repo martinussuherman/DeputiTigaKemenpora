@@ -24,15 +24,15 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
       public async Task<IActionResult> OnGetAsync()
       {
          List<Models.Kegiatan> tempList = await _context.Kegiatan
-             .Include(e => e.PenanggungJawabNavigation)
-             .OrderBy(e => e.PenanggungJawab)
-             .ThenBy(e => e.Nama)
-             .ThenBy(e => e.Tempat)
-             .AsNoTracking()
-             .ToListAsync();
+            .Include(e => e.PenanggungJawabNavigation)
+            .OrderBy(e => e.PenanggungJawab)
+            .ThenBy(e => e.Nama)
+            .ThenBy(e => e.Tempat)
+            .AsNoTracking()
+            .ToListAsync();
 
          List<ViewModels.Kegiatan> result = tempList
-             .ConvertAll(x => new ViewModels.Kegiatan { Models = x });
+            .ConvertAll(x => new ViewModels.Kegiatan { Models = x });
 
          using ExcelEngine excelEngine = new ExcelEngine();
          IApplication application = excelEngine.Excel;
@@ -100,9 +100,9 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
       }
 
       private void FillWorksheetDetail(
-          IWorksheet worksheet,
-          int index,
-          ViewModels.Kegiatan item)
+         IWorksheet worksheet,
+         int index,
+         ViewModels.Kegiatan item)
       {
          worksheet.Range[index + 2, 1].Number = index;
          worksheet.Range[index + 2, 2].Text = item.NamaPenanggungJawab;
@@ -117,29 +117,29 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
          CreateHyperlink(worksheet.Range[index + 2, 11], item.LinkBerita2);
          CreateHyperlink(worksheet.Range[index + 2, 12], item.LinkBerita3);
          CreateHyperlink(
-             worksheet.Range[index + 2, 13],
-             LocalToAbsoluteUri(item.FotoKegiatan1));
+            worksheet.Range[index + 2, 13],
+            LocalToAbsoluteUri(item.FotoKegiatan1));
          CreateHyperlink(
-             worksheet.Range[index + 2, 14],
-             LocalToAbsoluteUri(item.FotoKegiatan2));
+            worksheet.Range[index + 2, 14],
+            LocalToAbsoluteUri(item.FotoKegiatan2));
          CreateHyperlink(
-             worksheet.Range[index + 2, 15],
-             LocalToAbsoluteUri(item.FotoKegiatan3));
+            worksheet.Range[index + 2, 15],
+            LocalToAbsoluteUri(item.FotoKegiatan3));
          CreateHyperlink(
-             worksheet.Range[index + 2, 16],
-             LocalToAbsoluteUri(item.FotoKegiatan4));
+            worksheet.Range[index + 2, 16],
+            LocalToAbsoluteUri(item.FotoKegiatan4));
          CreateHyperlink(
-             worksheet.Range[index + 2, 17],
-             LocalToAbsoluteUri(item.FotoKegiatan5));
+            worksheet.Range[index + 2, 17],
+            LocalToAbsoluteUri(item.FotoKegiatan5));
          CreateHyperlink(
-             worksheet.Range[index + 2, 18],
-             LocalToAbsoluteUri(item.FilePendukung1));
+            worksheet.Range[index + 2, 18],
+            LocalToAbsoluteUri(item.FilePendukung1));
          CreateHyperlink(
-             worksheet.Range[index + 2, 19],
-             LocalToAbsoluteUri(item.FilePendukung2));
+            worksheet.Range[index + 2, 19],
+            LocalToAbsoluteUri(item.FilePendukung2));
          CreateHyperlink(
-             worksheet.Range[index + 2, 20],
-             LocalToAbsoluteUri(item.FilePendukung3));
+            worksheet.Range[index + 2, 20],
+            LocalToAbsoluteUri(item.FilePendukung3));
       }
 
       private void CreateHyperlink(IRange range, string url)
@@ -166,11 +166,11 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
          HttpRequest request = HttpContext.Request;
 
          return string.Concat(
-             request.Scheme,
-             "://",
-             request.Host.ToUriComponent(),
-             request.PathBase.ToUriComponent(),
-             localPath.ToUriComponent());
+            request.Scheme,
+            "://",
+            request.Host.ToUriComponent(),
+            request.PathBase.ToUriComponent(),
+            localPath.ToUriComponent());
       }
 
       // worksheet.Range["E6"].Value = "12/31/2018";

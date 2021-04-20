@@ -1,54 +1,49 @@
-using System;
 using System.IO;
 using Itm.Misc;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Syncfusion.HtmlConverter;
 using Syncfusion.Pdf;
 using Syncfusion.Pdf.Graphics;
 
 namespace DeputiTigaKemenpora.Pages.Kegiatan
 {
-    public class GeneratePdfModel : CustomPageModel
-    {
-        public GeneratePdfModel(ILogger<GeneratePdfModel> logger)
-        {
-            _logger = logger;
-            Title = "Generate PDF";
-        }
+   public class GeneratePdfModel : CustomPageModel
+   {
+      public GeneratePdfModel()
+      {
+         Title = "Generate PDF";
+      }
 
-        public IActionResult OnGet(string sourceUrl)
-        {
-            HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter();
+      public IActionResult OnGet(string sourceUrl)
+      {
+         HtmlToPdfConverter htmlConverter = new HtmlToPdfConverter();
 
-            WebKitConverterSettings settings = new WebKitConverterSettings
+         WebKitConverterSettings settings = new WebKitConverterSettings
+         {
+            WebKitPath = GeneratePdfHelper.WebKitPath,
+            MediaType = MediaType.Print,
+            Margin = new PdfMargins
             {
-                WebKitPath = GeneratePdfHelper.WebKitPath,
-                MediaType = MediaType.Print,
-                Margin = new PdfMargins
-                {
-                    Top = GeneratePdfHelper.MarginTopPoints,
-                    Bottom = GeneratePdfHelper.MarginBottomPoints,
-                    Left = GeneratePdfHelper.MarginLeftPoints,
-                    Right = GeneratePdfHelper.MarginRightPoints
-                }
-            };
+               Top = GeneratePdfHelper.MarginTopPoints,
+               Bottom = GeneratePdfHelper.MarginBottomPoints,
+               Left = GeneratePdfHelper.MarginLeftPoints,
+               Right = GeneratePdfHelper.MarginRightPoints
+            }
+         };
 
-            htmlConverter.ConverterSettings = settings;
+         htmlConverter.ConverterSettings = settings;
 
-            PdfDocument document = htmlConverter.Convert(sourceUrl);
-            MemoryStream stream = new MemoryStream();
+         PdfDocument document = htmlConverter.Convert(sourceUrl);
+         MemoryStream stream = new MemoryStream();
 
-            document.Save(stream);
-            stream.Position = 0;
-            document.Close(true);
+         document.Save(stream);
+         stream.Position = 0;
+         document.Close(true);
 
-            return File(
-                stream,
-                "application/pdf",
-                GeneratePdfHelper.DefaultOutputFileName);
-        }
-
-        private readonly ILogger<GeneratePdfModel> _logger;
-    }
+         return File(
+            stream,
+            "application/pdf",
+            GeneratePdfHelper.DefaultOutputFileName);
+      }
+   }
 }
