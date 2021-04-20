@@ -29,6 +29,8 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
 
       public SelectList KabupatenKota { get; set; }
 
+      public SelectList SumberDana { get; set; }
+
       public async Task<IActionResult> OnGetAsync(int? id)
       {
          if (id == null)
@@ -48,6 +50,7 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
 
          PenanggungJawab = await selectListUtilities.PenanggungJawab();
          KabupatenKota = await selectListUtilities.KabupatenKota();
+         SumberDana = await selectListUtilities.SumberDana();
 
          return Page();
       }
