@@ -45,19 +45,17 @@
             <button
                type="button"
                onclick="hideTooltip();"
-               class="btn btn-primary btn-sm"
+               class="btn btn-danger btn-sm"
                aria-label="Close"
             >
                <span aria-hidden="true">&times;</span>
             </button>
          </div>
 
-         <h5 class="text-center">${nama}</h5>
-         <a href="${progressLink}" class="btn btn-primary btn-block p-0">Progress: ${progressCount}</a>
-         <a href="${doneLink}" class="btn btn-primary btn-block p-0">Perda: ${doneCount}</a>
-         @* <h5 class="text-center">${Nama}</h5>
-         <a href="${ProgressLink}" class="btn btn-primary btn-block p-0">Progress: ${ProgressCount}</a>
-         <a href="${DoneLink}" class="btn btn-primary btn-block p-0">Perda: ${DoneCount}</a> *@
+         <h5 class="text-center">${Nama}</h5>
+         <a class="btn btn-success btn-block p-0" href="~/Kegiatan/ByProvinsi?prov=${Id}">
+            Jumlah Kegiatan: ${JumlahKegiatan}
+         </a>
       </div>
    </div>
 </section>
