@@ -18,35 +18,46 @@
 
 <!-- Maps -->
 <section class="page-section" id="sf-map">
-   <div class="container">
-      <div class="row">
-         <div class="col-lg-12">
-            <ejs-maps id="maps" border="Model.Border" centerPosition="Model.CenterPosition" format="n"
-               tooltipDisplayMode="Click" useGroupingSeparator="true" zoomSettings="Model.ZoomSettings">
-               <e-maps-layers>
-                  <e-maps-layer layerType="Bing" bingMapType="AerialWithLabel" key="@Model.BingKey"
-                     markerClusterSettings="Model.ClusterSettings" markerSettings="Model.MarkerSettings">
-                  </e-maps-layer>
-               </e-maps-layers>
-            </ejs-maps>
+   <ejs-maps
+      id="maps"
+      border="Model.Border"
+      centerPosition="Model.CenterPosition"
+      format="n"
+      tooltipDisplayMode="Click"
+      useGroupingSeparator="true"
+      zoomSettings="Model.ZoomSettings"
+   >
+      <e-maps-layers>
+         <e-maps-layer
+            layerType="Bing"
+            bingMapType="AerialWithLabel"
+            key="@Model.BingKey"
+            markerClusterSettings="Model.ClusterSettings"
+            markerSettings="Model.MarkerSettings"
+         >
+         </e-maps-layer>
+      </e-maps-layers>
+   </ejs-maps>
 
-            <div id="tooltip-template" style="display: none;">
-               <div class="deputi-tooltip p-2">
-                  <div class="text-right">
-                        <button type="button" onclick="hideTooltip();" class="btn btn-primary btn-sm" aria-label="Close">
-                           <span aria-hidden="true">&times;</span>
-                        </button>
-                  </div>
-
-                  <h5 class="text-center">${nama}</h5>
-                  <a href="${progressLink}" class="btn btn-primary btn-block p-0">Progress: ${progressCount}</a>
-                  <a href="${doneLink}" class="btn btn-primary btn-block p-0">Perda: ${doneCount}</a>
-                  @* <h5 class="text-center">${Nama}</h5>
-                  <a href="${ProgressLink}" class="btn btn-primary btn-block p-0">Progress: ${ProgressCount}</a>
-                  <a href="${DoneLink}" class="btn btn-primary btn-block p-0">Perda: ${DoneCount}</a> *@
-               </div>
-            </div>
+   <div id="tooltip-template" style="display: none;">
+      <div class="deputi-tooltip p-2">
+         <div class="text-right">
+            <button
+               type="button"
+               onclick="hideTooltip();"
+               class="btn btn-primary btn-sm"
+               aria-label="Close"
+            >
+               <span aria-hidden="true">&times;</span>
+            </button>
          </div>
+
+         <h5 class="text-center">${nama}</h5>
+         <a href="${progressLink}" class="btn btn-primary btn-block p-0">Progress: ${progressCount}</a>
+         <a href="${doneLink}" class="btn btn-primary btn-block p-0">Perda: ${doneCount}</a>
+         @* <h5 class="text-center">${Nama}</h5>
+         <a href="${ProgressLink}" class="btn btn-primary btn-block p-0">Progress: ${ProgressCount}</a>
+         <a href="${DoneLink}" class="btn btn-primary btn-block p-0">Perda: ${DoneCount}</a> *@
       </div>
    </div>
 </section>
