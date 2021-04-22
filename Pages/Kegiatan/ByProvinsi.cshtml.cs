@@ -22,7 +22,7 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
             return;
          }
 
-         await RetrieveData(prov.Value, page);
+         await RetrieveData(page, prov.Value);
       }
    }
 }
