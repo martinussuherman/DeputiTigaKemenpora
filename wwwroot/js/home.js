@@ -1,3 +1,7 @@
+function hideTooltip() {
+   $("#maps_mapsTooltip").remove();
+}
+
 function AjaxSummaryKegiatan(tahunSummary) {
    $.getJSON('/Ajax/FilterSummary',
       { tahun: tahunSummary }, function (data) {
