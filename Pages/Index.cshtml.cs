@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net.Http;
+using System.Linq;
 using System.Threading.Tasks;
 using DeputiTigaKemenpora.Data;
+using DeputiTigaKemenpora.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
 using Syncfusion.EJ2.Maps;
 
 namespace DeputiTigaKemenpora.Pages
@@ -14,13 +15,12 @@ namespace DeputiTigaKemenpora.Pages
    public class IndexModel : PageModel
    {
       public IndexModel(
-         IHttpClientFactory httpClientFactory,
          IConfiguration configuration,
          ApplicationDbContext context)
       {
          _selectListUtilities = new SelectListUtilities(context);
-         _httpClientFactory = httpClientFactory;
          _configuration = configuration;
+         _context = context;
       }
 
       public int Tahun { get; set; }
@@ -59,14 +59,16 @@ namespace DeputiTigaKemenpora.Pages
       {
          new MapsMarker
          {
-            AnimationDuration=0,
-            DataSource=MapsMarkerData,
+            AnimationDuration = 0,
+            DataSource = MapsMarkerData,
             Fill = "#ff0000",
-            Height=10,
+            Height = 10,
+            LatitudeValuePath = "Lat",
+            LongitudeValuePath = "Long",
             Shape = MarkerType.Circle,
-            TooltipSettings=_tooltipSettings,
-            Visible=true,
-            Width=10
+            TooltipSettings = _tooltipSettings,
+            Visible = true,
+            Width = 10
          }
       };
 
@@ -92,11 +94,30 @@ namespace DeputiTigaKemenpora.Pages
 
       private async Task<object> ReadMarkerData()
       {
-         HttpClient httpClient = _httpClientFactory.CreateClient();
-         HttpResponseMessage response = await httpClient.SendAsync(new HttpRequestMessage(
-            HttpMethod.Get,
-            "https://tataruang.atrbpn.go.id/protaru/api/Progress/DaerahMap"));
-         return JsonConvert.DeserializeObject(await response.Content.ReadAsStringAsync());
+         return await LoadDataAsync();
+      }
+
+      private async Task<List<MapData>> LoadDataAsync()
+      {
+         return await _context.Kegiatan
+            .Include(e => e.KabupatenKota.Provinsi)
+            .Where(e => e.KabupatenKota.ProvinsiId != null)
+            .GroupBy(keySelector: e => new
+            {
+               e.KabupatenKota.ProvinsiId,
+               e.KabupatenKota.Provinsi.Nama,
+               e.KabupatenKota.Provinsi.Lat,
+               e.KabupatenKota.Provinsi.Long
+            })
+            .Select(r => new MapData
+            {
+               Id = r.Key.ProvinsiId,
+               Nama = r.Key.Nama,
+               Lat = r.Key.Lat,
+               Long = r.Key.Long,
+               JumlahKegiatan = r.Count()
+            })
+            .ToListAsync();
       }
 
       private readonly string[] _toolbars = new string[]
@@ -111,10 +132,10 @@ namespace DeputiTigaKemenpora.Pages
       {
          Template = "#tooltip-template",
          Visible = true,
-         ValuePath = "nama"
+         ValuePath = "Nama"
       };
       private readonly SelectListUtilities _selectListUtilities;
-      private readonly IHttpClientFactory _httpClientFactory;
       private readonly IConfiguration _configuration;
+      private readonly ApplicationDbContext _context;
    }
 }
