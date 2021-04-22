@@ -12,7 +12,7 @@ using P.Pager;
 
 namespace DeputiTigaKemenpora.Pages.Kegiatan
 {
-   public class IndexModel : CustomPageModel
+   public class IndexModel : CustomPageModel, IKegiatanIndexModel
    {
       public IndexModel(
           IAuthorizationService authorizationService,
