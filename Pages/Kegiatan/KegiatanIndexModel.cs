@@ -7,7 +7,6 @@ using DeputiTigaKemenpora.ViewModels;
 using Itm.Misc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query;
 using P.Pager;
 
 namespace DeputiTigaKemenpora.Pages.Kegiatan
@@ -30,15 +29,17 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
 
       public async Task RetrieveData(int page, int provinsiId = -1)
       {
-         IIncludableQueryable<Models.Kegiatan, Models.Provinsi> query = _context.Kegiatan
+         IQueryable<Models.Kegiatan> query = _context.Kegiatan
             .Include(e => e.PenanggungJawabNavigation)
             .Include(e => e.SumberDanaNavigation)
             .Include(e => e.KabupatenKota.Provinsi);
 
          if (provinsiId != -1)
          {
-            query = (IIncludableQueryable<Models.Kegiatan, Models.Provinsi>)query
+            query = query
                .Where(e => e.KabupatenKota.ProvinsiId == provinsiId);
+
+            // TODO : update Title/PageTitle with Provinsi name.
          }
 
          List<Models.Kegiatan> list = await query
