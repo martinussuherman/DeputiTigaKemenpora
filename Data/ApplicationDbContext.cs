@@ -52,10 +52,10 @@ namespace DeputiTigaKemenpora.Data
             entity.HasIndex(e => e.KabupatenKotaId)
                .HasName("FK_kegiatan_kabupaten_kota");
 
-            entity.HasIndex(e => e.PenanggungJawab)
+            entity.HasIndex(e => e.PenanggungJawabId)
                .HasName("FK_kegiatan_penanggung_jawab");
 
-            entity.HasIndex(e => e.SumberDana)
+            entity.HasIndex(e => e.SumberDanaId)
                .HasName("FK_kegiatan_sumber_dana");
 
             entity.Property(e => e.Id).HasColumnType("int(10) unsigned");
@@ -163,9 +163,9 @@ namespace DeputiTigaKemenpora.Data
                .HasCharSet("utf8")
                .HasCollation("utf8_general_ci");
 
-            entity.Property(e => e.PenanggungJawab).HasColumnType("smallint(5) unsigned");
+            entity.Property(e => e.PenanggungJawabId).HasColumnType("smallint(5) unsigned");
 
-            entity.Property(e => e.SumberDana).HasColumnType("tinyint(3) unsigned");
+            entity.Property(e => e.SumberDanaId).HasColumnType("tinyint(3) unsigned");
 
             entity.Property(e => e.TanggalMulai).HasColumnType("datetime");
 
@@ -184,15 +184,15 @@ namespace DeputiTigaKemenpora.Data
                .OnDelete(DeleteBehavior.SetNull)
                .HasConstraintName("FK_kegiatan_kabupaten_kota");
 
-            entity.HasOne(d => d.PenanggungJawabNavigation)
+            entity.HasOne(d => d.PenanggungJawab)
                .WithMany(p => p.Kegiatan)
-               .HasForeignKey(d => d.PenanggungJawab)
+               .HasForeignKey(d => d.PenanggungJawabId)
                .OnDelete(DeleteBehavior.SetNull)
                .HasConstraintName("FK_kegiatan_penanggung_jawab");
 
-            entity.HasOne(d => d.SumberDanaNavigation)
+            entity.HasOne(d => d.SumberDana)
                .WithMany(p => p.Kegiatan)
-               .HasForeignKey(d => d.SumberDana)
+               .HasForeignKey(d => d.SumberDanaId)
                .OnDelete(DeleteBehavior.SetNull)
                .HasConstraintName("FK_kegiatan_sumber_dana");
          });
