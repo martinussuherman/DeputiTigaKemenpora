@@ -5,9 +5,9 @@ namespace DeputiTigaKemenpora.Models
    public partial class Kegiatan
    {
       public uint Id { get; set; }
-      public ushort? PenanggungJawab { get; set; }
+      public ushort? PenanggungJawabId { get; set; }
       public ushort? KabupatenKotaId { get; set; }
-      public byte? SumberDana { get; set; }
+      public byte? SumberDanaId { get; set; }
       public string Nama { get; set; }
       public string Tempat { get; set; }
       public DateTime TanggalMulai { get; set; }
@@ -29,7 +29,7 @@ namespace DeputiTigaKemenpora.Models
       public string FilePendukung3 { get; set; }
 
       public virtual KabupatenKota KabupatenKota { get; set; }
-      public virtual PenanggungJawab PenanggungJawabNavigation { get; set; }
-      public virtual SumberDana SumberDanaNavigation { get; set; }
+      public virtual PenanggungJawab PenanggungJawab { get; set; }
+      public virtual SumberDana SumberDana { get; set; }
    }
 }
