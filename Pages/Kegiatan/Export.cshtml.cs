@@ -24,7 +24,7 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
       public async Task<IActionResult> OnGetAsync()
       {
          List<Models.Kegiatan> tempList = await _context.Kegiatan
-            .Include(e => e.PenanggungJawabNavigation)
+            .Include(e => e.PenanggungJawab)
             .OrderBy(e => e.PenanggungJawab)
             .ThenBy(e => e.Nama)
             .ThenBy(e => e.Tempat)

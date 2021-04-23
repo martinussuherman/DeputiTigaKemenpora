@@ -29,7 +29,7 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
          }
 
          Kegiatan.Models = await _context.Kegiatan
-            .Include(e => e.PenanggungJawabNavigation)
+            .Include(e => e.PenanggungJawab)
             .AsNoTracking()
             .FirstOrDefaultAsync(e => e.Id == id);
 

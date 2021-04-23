@@ -14,8 +14,8 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
    public class KegiatanIndexModel : CustomPageModel, IKegiatanIndexModel
    {
       public KegiatanIndexModel(
-          IAuthorizationService authorizationService,
-          ApplicationDbContext context)
+         IAuthorizationService authorizationService,
+         ApplicationDbContext context)
       {
          _authorizationService = authorizationService;
          _context = context;
@@ -30,8 +30,8 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
       public async Task RetrieveData(int page, int provinsiId = -1)
       {
          IQueryable<Models.Kegiatan> query = _context.Kegiatan
-            .Include(e => e.PenanggungJawabNavigation)
-            .Include(e => e.SumberDanaNavigation)
+            .Include(e => e.PenanggungJawab)
+            .Include(e => e.SumberDana)
             .Include(e => e.KabupatenKota.Provinsi);
 
          if (provinsiId != -1)
