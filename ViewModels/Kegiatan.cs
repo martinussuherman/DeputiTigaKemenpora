@@ -32,16 +32,23 @@ namespace DeputiTigaKemenpora.ViewModels
          set => Models.Id = value;
       }
 
-      [Required(ErrorMessage = "Mohon pilih Penanggung Jawab.")]
-      public ushort? PenanggungJawab
+      [Required(ErrorMessage = "Nama harus diisi.")]
+      public string Nama
       {
-         get => Models.PenanggungJawab;
-         set => Models.PenanggungJawab = value;
+         get => Models.Nama;
+         set => Models.Nama = value;
+      }
+
+      [Required(ErrorMessage = "Mohon pilih Penanggung Jawab.")]
+      public ushort? IdPenanggungJawab
+      {
+         get => Models.PenanggungJawabId;
+         set => Models.PenanggungJawabId = value;
       }
 
       public string NamaPenanggungJawab
       {
-         get => Models?.PenanggungJawabNavigation?.Nama ?? string.Empty;
+         get => Models?.PenanggungJawab?.Nama ?? string.Empty;
       }
 
       [Required(ErrorMessage = "Mohon pilih Kabupaten/Kota.")]
@@ -56,11 +63,16 @@ namespace DeputiTigaKemenpora.ViewModels
          get => Models?.KabupatenKota?.Nama ?? string.Empty;
       }
 
-      [Required(ErrorMessage = "Nama harus diisi.")]
-      public string Nama
+      [Required(ErrorMessage = "Mohon pilih Sumber Dana.")]
+      public byte? IdSumberDana
       {
-         get => Models.Nama;
-         set => Models.Nama = value;
+         get => Models.SumberDanaId;
+         set => Models.SumberDanaId = value;
+      }
+
+      public string NamaSumberDana
+      {
+         get => Models?.SumberDana?.Nama ?? string.Empty;
       }
 
       [Required(ErrorMessage = "Tempat harus diisi.")]
