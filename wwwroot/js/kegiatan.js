@@ -3,6 +3,19 @@ function onFocus(element) {
    datepickerObject.show();
 }
 
+function onSwitchChange(args) {
+   var element = document.getElementById('kendala');
+
+   if (args.checked) {
+      element.disabled = false;
+      element.parentElement.classList.remove('e-disabled');
+      return;
+   }
+
+   element.disabled = true;
+   element.parentElement.classList.add('e-disabled');
+}
+
 $(document).ready(function () {
    $('.foto-kegiatan .btn-upload').click(function () {
       process(this, 'foto-kegiatan');
