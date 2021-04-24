@@ -6,7 +6,6 @@ using DeputiTigaKemenpora.Identity;
 using Itm.Misc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeputiTigaKemenpora.Pages.Kegiatan
@@ -25,13 +24,11 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
       [BindProperty]
       public ViewModels.Kegiatan Kegiatan { get; set; } = new ViewModels.Kegiatan();
 
-      public SelectList PenanggungJawab { get; set; }
-
-      public SelectList KabupatenKota { get; set; }
-
-      public SelectList SumberDana { get; set; }
-
       public List<Models.KabupatenKota> KabupatenKotaList { get; set; }
+
+      public List<Models.PenanggungJawab> PenanggungJawabList { get; set; }
+
+      public List<Models.SumberDana> SumberDanaList { get; set; }
 
       public async Task<IActionResult> OnGetAsync(int? id)
       {
@@ -50,10 +47,9 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
             return NotFound();
          }
 
-         PenanggungJawab = await selectListUtilities.PenanggungJawab();
-         KabupatenKota = await selectListUtilities.KabupatenKota();
-         SumberDana = await selectListUtilities.SumberDana();
          KabupatenKotaList = await selectListUtilities.KabupatenKotaList();
+         PenanggungJawabList = await selectListUtilities.PenanggungJawabList();
+         SumberDanaList = await selectListUtilities.SumberDanaList();
 
          return Page();
       }
@@ -62,6 +58,9 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
       {
          if (!ModelState.IsValid)
          {
+            KabupatenKotaList = await selectListUtilities.KabupatenKotaList();
+            PenanggungJawabList = await selectListUtilities.PenanggungJawabList();
+            SumberDanaList = await selectListUtilities.SumberDanaList();
             return Page();
          }
 
