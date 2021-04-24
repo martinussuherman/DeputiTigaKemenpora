@@ -1,9 +1,9 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DeputiTigaKemenpora.Data;
 using Itm.Misc;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeputiTigaKemenpora.Pages.KabupatenKota
@@ -21,7 +21,7 @@ namespace DeputiTigaKemenpora.Pages.KabupatenKota
       [BindProperty]
       public ViewModels.KabupatenKota KabupatenKota { get; set; } = new ViewModels.KabupatenKota();
 
-      public SelectList Provinsi { get; set; }
+      public List<Models.Provinsi> ProvinsiList { get; set; }
 
       public async Task<IActionResult> OnGetAsync(int? id)
       {
@@ -39,7 +39,7 @@ namespace DeputiTigaKemenpora.Pages.KabupatenKota
             return NotFound();
          }
 
-         Provinsi = await selectListUtilities.Provinsi();
+         ProvinsiList = await selectListUtilities.ProvinsiList();
          return Page();
       }
 
@@ -47,6 +47,7 @@ namespace DeputiTigaKemenpora.Pages.KabupatenKota
       {
          if (!ModelState.IsValid)
          {
+            ProvinsiList = await selectListUtilities.ProvinsiList();
             return Page();
          }
 
