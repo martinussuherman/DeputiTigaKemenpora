@@ -4,7 +4,13 @@
 
 <div class="form-group">
    <label class="control-label">Nama</label>
-   <input asp-for="PenanggungJawab.Nama" class="form-control" />
+   <ejs-textbox
+      id="nama"
+      ejs-for="PenanggungJawab.Nama"
+      placeholder="Nama Penanggung Jawab"
+      aria-mycontrol="ej2"
+   >
+   </ejs-textbox>
    <span asp-validation-for="PenanggungJawab.Nama" class="text-danger"></span>
 </div>
 
