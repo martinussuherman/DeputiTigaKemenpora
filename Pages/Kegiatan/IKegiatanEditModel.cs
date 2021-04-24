@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 
 namespace DeputiTigaKemenpora.Pages.Kegiatan
 {
@@ -6,10 +6,10 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
    {
       ViewModels.Kegiatan Kegiatan { get; set; }
 
-      SelectList PenanggungJawab { get; set; }
+      List<Models.KabupatenKota> KabupatenKotaList { get; set; }
 
-      SelectList KabupatenKota { get; set; }
+      List<Models.PenanggungJawab> PenanggungJawabList { get; set; }
 
-      SelectList SumberDana { get; set; }
+      List<Models.SumberDana> SumberDanaList { get; set; }
    }
 }
