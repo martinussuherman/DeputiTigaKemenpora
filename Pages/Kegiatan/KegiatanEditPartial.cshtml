@@ -3,66 +3,156 @@
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 <div class="form-group">
-   <label class="control-label">Penanggung Jawab</label>
-   <select asp-for="Kegiatan.IdPenanggungJawab" class="form-control" asp-items="@Model.PenanggungJawab" required>
-      <option value="">Silahkan pilih ...</option>
-   </select>
-   <span asp-validation-for="Kegiatan.IdPenanggungJawab" class="text-danger"></span>
-</div>
-
-<div class="form-group">
    <label class="control-label">Nama Kegiatan</label>
-   <input asp-for="Kegiatan.Nama" class="form-control" />
+   <ejs-textbox
+      id="nama"
+      ejs-for="Kegiatan.Nama"
+      placeholder="Nama Kegiatan"
+      aria-mycontrol="ej2"
+   >
+   </ejs-textbox>
    <span asp-validation-for="Kegiatan.Nama" class="text-danger"></span>
 </div>
 
-<div class="form-group">
-   <label class="control-label">Kabupaten/Kota</label>
-   <select asp-for="Kegiatan.IdKabupatenKota" class="form-control" asp-items="@Model.KabupatenKota" required>
-      <option value="">Silahkan pilih ...</option>
-   </select>
-   <span asp-validation-for="Kegiatan.IdKabupatenKota" class="text-danger"></span>
+<div class="form-row">
+   <div class="form-group col-sm-12 col-md-6">
+      <label class="control-label">Nama Pejabat Pembuka</label>
+      <ejs-textbox
+         id="pejabat-pembuka"
+         ejs-for="Kegiatan.NamaPejabatPembuka"
+         placeholder="Nama Pejabat Pembuka"
+         aria-mycontrol="ej2"
+      >
+      </ejs-textbox>
+      <span asp-validation-for="Kegiatan.NamaPejabatPembuka" class="text-danger"></span>
+   </div>
+
+   <div class="form-group col-sm-12 col-md-6">
+      <label class="control-label">Jumlah Peserta</label>
+      <ejs-numerictextbox
+         id="jumlah-peserta"
+         ejs-for="Kegiatan.JumlahPeserta"
+         format="n0"
+         placeholder="Jumlah Peserta"
+         aria-mycontrol="ej2"
+      >
+      </ejs-numerictextbox>
+      <span asp-validation-for="Kegiatan.JumlahPeserta" class="text-danger"></span>
+   </div>
+</div>
+
+<div class="form-row">
+   <div class="form-group col-sm-12 col-md-6">
+      <label class="control-label">Tempat</label>
+      <ejs-textbox
+         id="tempat"
+         ejs-for="Kegiatan.Tempat"
+         placeholder="Tempat"
+         aria-mycontrol="ej2"
+      >
+      </ejs-textbox>
+      <span asp-validation-for="Kegiatan.Tempat" class="text-danger"></span>
+   </div>
+
+   <div class="form-group col-sm-12 col-md-6">
+      <label class="control-label">Sumber Dana</label>
+      <ejs-dropdownlist
+         id="sumber-dana"
+         ejs-for="Kegiatan.IdSumberDana"
+         dataSource="@Model.SumberDanaList"
+         placeholder="Pilih Sumber Dana"
+         allowFiltering="true"
+         filterType="Contains"
+         aria-mycontrol="ej2"
+      >
+         <e-dropdownlist-fields text="Nama" value="Id"></e-dropdownlist-fields>
+      </ejs-dropdownlist>
+      <span asp-validation-for="Kegiatan.IdSumberDana" class="text-danger"></span>
+   </div>
+</div>
+
+<div class="form-row">
+   <div class="form-group col-sm-12 col-md-6">
+      <label class="control-label">Penanggung Jawab</label>
+      <ejs-dropdownlist
+         id="penanggung-jawab"
+         ejs-for="Kegiatan.IdPenanggungJawab"
+         dataSource="@Model.PenanggungJawabList"
+         placeholder="Pilih Penanggung Jawab"
+         allowFiltering="true"
+         filterType="Contains"
+         aria-mycontrol="ej2"
+      >
+         <e-dropdownlist-fields text="Nama" value="Id"></e-dropdownlist-fields>
+      </ejs-dropdownlist>
+      <span asp-validation-for="Kegiatan.IdPenanggungJawab" class="text-danger"></span>
+   </div>
+
+   <div class="form-group col-sm-12 col-md-6">
+      <label class="control-label">Kabupaten/Kota</label>
+      <ejs-dropdownlist
+         id="kabupaten-kota"
+         ejs-for="Kegiatan.IdKabupatenKota"
+         dataSource="@Model.KabupatenKotaList"
+         placeholder="Pilih Kabupaten/Kota"
+         allowFiltering="true"
+         filterType="Contains"
+         aria-mycontrol="ej2"
+      >
+         <e-dropdownlist-fields text="Nama" value="Id"></e-dropdownlist-fields>
+      </ejs-dropdownlist>
+      <span asp-validation-for="Kegiatan.IdKabupatenKota" class="text-danger"></span>
+   </div>
+</div>
+
+<div class="form-row">
+   <div class="form-group col-sm-12 col-md-6">
+      <label class="control-label">Tanggal Mulai</label>
+      <ejs-datepicker
+         id="tanggal-mulai"
+         ejs-for="Kegiatan.TanggalMulai"
+         format="dd-MMM-yyyy"
+         placeholder="Tanggal Mulai"
+         aria-mycontrol="ej2"
+      >
+      </ejs-datepicker>
+      <span asp-validation-for="Kegiatan.TanggalMulai" class="text-danger"></span>
+   </div>
+
+   <div class="form-group col-sm-12 col-md-6">
+      <label class="control-label">Tanggal Selesai</label>
+      <ejs-datepicker
+         id="tanggal-selesai"
+         ejs-for="Kegiatan.TanggalSelesai"
+         format="dd-MMM-yyyy"
+         placeholder="Tanggal Selesai"
+         aria-mycontrol="ej2"
+      >
+      </ejs-datepicker>
+      <span asp-validation-for="Kegiatan.TanggalSelesai" class="text-danger"></span>
+   </div>
 </div>
 
 <div class="form-group">
-   <label class="control-label">Tempat</label>
-   <input asp-for="Kegiatan.Tempat" class="form-control" />
-   <span asp-validation-for="Kegiatan.Tempat" class="text-danger"></span>
-</div>
-
-<div class="form-group">
-   <label class="control-label">Tanggal Mulai</label>
-   <input type="date" asp-for="Kegiatan.TanggalMulai" value="@Model.Kegiatan.TanggalMulaiDisplay"
-      class="form-control" />
-   <span asp-validation-for="Kegiatan.TanggalMulai" class="text-danger"></span>
-</div>
-
-<div class="form-group">
-   <label class="control-label">Tanggal Selesai</label>
-   <input type="date" asp-for="Kegiatan.TanggalSelesai" value="@Model.Kegiatan.TanggalSelesaiDisplay"
-      class="form-control" />
-   <span asp-validation-for="Kegiatan.TanggalSelesai" class="text-danger"></span>
-</div>
-
-<div class="form-group">
-   <label class="control-label">Nama Pejabat Pembuka</label>
-   <input asp-for="Kegiatan.NamaPejabatPembuka" class="form-control" />
-   <span asp-validation-for="Kegiatan.NamaPejabatPembuka" class="text-danger"></span>
-</div>
-
-<div class="form-group">
-   <label class="control-label">Jumlah Peserta</label>
-   <input asp-for="Kegiatan.JumlahPeserta" class="form-control" />
-   <span asp-validation-for="Kegiatan.JumlahPeserta" class="text-danger"></span>
-</div>
-
-<div class="form-check">
-   <input type="checkbox" asp-for="Kegiatan.AdaKendala" class="form-check-input ada-kendala" />
+   <ejs-switch
+      id="ada-kendala"
+      ejs-for="Kegiatan.AdaKendala"
+      change="onSwitchChange"
+      aria-mycontrol="ej2"
+   >
+   </ejs-switch>
    <label class="form-check-label">Kendala</label>
 </div>
 
 <div class="form-group">
-   <input asp-for="Kegiatan.Kendala" class="form-control kendala" disabled="@(!Model.Kegiatan.AdaKendala)" />
+   <ejs-textbox
+      id="kendala"
+      ejs-for="Kegiatan.Kendala"
+      placeholder="Kendala"
+      disabled="@(!Model.Kegiatan.AdaKendala)"
+      aria-mycontrol="ej2"
+   >
+   </ejs-textbox>
    <span asp-validation-for="Kegiatan.Kendala" class="text-danger"></span>
 </div>
 
