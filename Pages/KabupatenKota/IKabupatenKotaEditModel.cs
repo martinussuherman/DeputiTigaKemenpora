@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 
 namespace DeputiTigaKemenpora.Pages.KabupatenKota
 {
@@ -6,6 +6,6 @@ namespace DeputiTigaKemenpora.Pages.KabupatenKota
    {
       ViewModels.KabupatenKota KabupatenKota { get; set; }
 
-      SelectList Provinsi { get; set; }
+      List<Models.Provinsi> ProvinsiList { get; set; }
    }
 }
