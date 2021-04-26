@@ -13,13 +13,13 @@
                Id
             </th>
             <th>
-               Penanggung Jawab
-            </th>
-            <th>
                Nama
             </th>
             <th>
-               Tempat
+               Kabupaten/Kota
+            </th>
+            <th>
+               Sumber Dana
             </th>
             <th>
             </th>
@@ -35,13 +35,13 @@
                   @Html.DisplayFor(modelItem => item.Id)
                </td>
                <td>
-                  @Html.DisplayFor(modelItem => item.NamaPenanggungJawab)
-               </td>
-               <td>
                   @Html.DisplayFor(modelItem => item.Nama)
                </td>
                <td>
-                  @Html.DisplayFor(modelItem => item.Tempat)
+                  @Html.DisplayFor(modelItem => item.NamaKabupatenKota)
+               </td>
+               <td>
+                  @Html.DisplayFor(modelItem => item.NamaSumberDana)
                </td>
                <td>
                   <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-warning">Ubah</a>
