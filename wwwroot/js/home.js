@@ -20,7 +20,8 @@ function AjaxSummaryKegiatan(tahunSummary) {
 
 function DisplaySummary(data) {
    return '<tr>' +
-      '<td>' + data.namaPenanggungJawab + '</td>' +
+      '<td>' + data.nama + '</td>' +
+      '<td>' + data.namaSumberDana + '</td>' +
       '<td class="text-right pr-4">' + data.jumlahKegiatanView + '</td>' +
       '<td class="text-right pr-4">' + data.totalPesertaView + '</td>' +
       '</tr>';
@@ -29,6 +30,7 @@ function DisplaySummary(data) {
 function DisplayTotal(data) {
    return '<tr class="table-warning">' +
       '<td>Total</td>' +
+      '<td></td>' +
       '<td class="text-right pr-4">' + data.grandTotalKegiatanView + '</td>' +
       '<td class="text-right pr-4">' + data.grandTotalPesertaView + '</td>' +
       '</tr>';
