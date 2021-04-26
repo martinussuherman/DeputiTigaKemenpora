@@ -20,11 +20,6 @@ namespace DeputiTigaKemenpora.Pages.Ajax
 
       public async Task<JsonResult> OnGetAsync(int tahun)
       {
-         List<Models.PenanggungJawab> listPenanggungJawab = await _context.PenanggungJawab
-            .OrderBy(e => e.Nama)
-            .AsNoTracking()
-            .ToListAsync();
-
          IQueryable<Models.Kegiatan> query = _context.Kegiatan;
 
          if (tahun != 0)
@@ -34,26 +29,37 @@ namespace DeputiTigaKemenpora.Pages.Ajax
          }
 
          List<SummaryKegiatan> sumInfo = await query
-            .GroupBy(e => e.PenanggungJawabId)
+            .GroupBy(e => new
+            {
+               e.Nama,
+               e.SumberDanaId
+            })
             .Select(s => new SummaryKegiatan
             {
-               IdPenanggungJawab = s.Key.Value,
+               Nama = s.Key.Nama,
+               IdSumberDana = s.Key.SumberDanaId,
                JumlahKegiatan = s.Count(),
                TotalPeserta = s.Sum(e => e.JumlahPeserta)
             })
             .AsNoTracking()
             .ToListAsync();
 
+         List<Models.SumberDana> listSumberDana = await _context.SumberDana
+            .OrderBy(e => e.Nama)
+            .AsNoTracking()
+            .ToListAsync();
+
          foreach (SummaryKegiatan item in sumInfo)
          {
-            Models.PenanggungJawab penanggungJawab = listPenanggungJawab
-               .Find(e => e.Id == item.IdPenanggungJawab);
-            item.NamaPenanggungJawab = penanggungJawab.Nama;
+            item.NamaSumberDana = listSumberDana
+               .FirstOrDefault(e => e.Id == item.IdSumberDana)?.Nama;
          }
 
          SummaryView result = new SummaryView
          {
-            Summary = sumInfo.OrderBy(e => e.NamaPenanggungJawab),
+            Summary = sumInfo
+               .OrderBy(e => e.Nama)
+               .ThenBy(e => e.NamaSumberDana),
             GrandTotalKegiatan = sumInfo.Sum(e => e.JumlahKegiatan),
             GrandTotalPeserta = sumInfo.Sum(e => e.TotalPeserta)
          };
