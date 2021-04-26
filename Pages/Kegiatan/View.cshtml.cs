@@ -27,6 +27,8 @@ namespace DeputiTigaKemenpora.Pages.Kegiatan
 
          Kegiatan.Models = await _context.Kegiatan
             .Include(e => e.PenanggungJawab)
+            .Include(e => e.KabupatenKota)
+            .Include(e => e.SumberDana)
             .AsNoTracking()
             .FirstOrDefaultAsync(e => e.Id == id);
 
