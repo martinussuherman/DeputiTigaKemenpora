@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
 namespace DeputiTigaKemenpora
 {
@@ -28,6 +29,7 @@ namespace DeputiTigaKemenpora
       public void ConfigureServices(IServiceCollection services)
       {
          ConfigureDatabase(services);
+         ConfigureSwagger(services);
          ConfigureCookie(services);
          ConfigureMisc(services);
 
@@ -63,8 +65,11 @@ namespace DeputiTigaKemenpora
             .UseAuthentication()
             .UseAuthorization();
 
+         string basePath = string.Empty;
+
          ConfigureEndpoints(app);
          ConfigureStaticFiles(app, env);
+         ConfigureSwaggerUI(app, basePath);
          ReadPdfConfiguration();
 
          PagerUrlHelper.ItemPerPage = 20;
@@ -91,6 +96,13 @@ namespace DeputiTigaKemenpora
                      sqlOptions.EnableRetryOnFailure(10, TimeSpan.FromSeconds(30), null);
                   }),
                16);
+      }
+      private void ConfigureSwagger(IServiceCollection services)
+      {
+         services.AddSwaggerGen(c =>
+         {
+            c.SwaggerDoc("v1", new OpenApiInfo { Title = "Kegiatan Deputi 3 API", Version = "v1" });
+         });
       }
       private void ConfigureCookie(IServiceCollection services)
       {
@@ -123,6 +135,15 @@ namespace DeputiTigaKemenpora
             {
                FileProvider = new PhysicalFileProvider(Path.Combine(env.WebRootPath, "upload")),
                RequestPath = new PathString("/upload")
+            });
+      }
+      private void ConfigureSwaggerUI(IApplicationBuilder app, string basePath)
+      {
+         app
+            .UseSwagger()
+            .UseSwaggerUI(c =>
+            {
+               c.SwaggerEndpoint($"{basePath}/swagger/v1/swagger.json", "Kegiatan Deputi 3 API V1");
             });
       }
       private void ReadPdfConfiguration()
