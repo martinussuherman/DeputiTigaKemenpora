@@ -27,20 +27,14 @@ namespace DeputiTigaKemenpora
       // This method gets called by the runtime. Use this method to add services to the container.
       public void ConfigureServices(IServiceCollection services)
       {
-         ConfigureDbContext(services);
+         ConfigureDatabase(services);
+         ConfigureCookie(services);
+         ConfigureMisc(services);
+
          services.AddIdentity<ApplicationUser, ApplicationRole>()
             .AddEntityFrameworkStores<IdentityDbContext>();
          services.AddRazorPages();
-         services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
-         services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
-         services.ConfigureApplicationCookie(options =>
-         {
-            options.LoginPath = $"/Identity/Account/Login";
-            // options.LogoutPath = $"/Identity/Account/Logout";
-            options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
-         });
-
-         services.AddHttpClient(Microsoft.Extensions.Options.Options.DefaultName);
+         services.AddMvc();
       }
 
       // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,25 +61,18 @@ namespace DeputiTigaKemenpora
                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             })
             .UseAuthentication()
-            .UseAuthorization()
-            .UseEndpoints(endpoints =>
-            {
-               endpoints.MapRazorPages();
-            })
-            .UseStaticFiles()
-            .UseStaticFiles(new StaticFileOptions
-            {
-               FileProvider = new PhysicalFileProvider(Path.Combine(env.WebRootPath, "upload")),
-               RequestPath = new PathString("/upload")
-            });
+            .UseAuthorization();
 
+         ConfigureEndpoints(app);
+         ConfigureStaticFiles(app, env);
          ReadPdfConfiguration();
+
          PagerUrlHelper.ItemPerPage = 20;
          Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
              Configuration.GetValue<string>("SfLicense"));
       }
 
-      private void ConfigureDbContext(IServiceCollection services)
+      private void ConfigureDatabase(IServiceCollection services)
       {
          services
             .AddDbContextPool<ApplicationDbContext>(options =>
@@ -93,10 +80,7 @@ namespace DeputiTigaKemenpora
                   Configuration.GetConnectionString("DefaultConnection"),
                   sqlOptions =>
                   {
-                     sqlOptions.EnableRetryOnFailure(
-                        10,
-                        TimeSpan.FromSeconds(30),
-                        null);
+                     sqlOptions.EnableRetryOnFailure(10, TimeSpan.FromSeconds(30), null);
                   }),
                32)
             .AddDbContextPool<IdentityDbContext>(options =>
@@ -104,14 +88,43 @@ namespace DeputiTigaKemenpora
                   Configuration.GetConnectionString("IdentityConnection"),
                   sqlOptions =>
                   {
-                     sqlOptions.EnableRetryOnFailure(
-                        10,
-                        TimeSpan.FromSeconds(30),
-                        null);
+                     sqlOptions.EnableRetryOnFailure(10, TimeSpan.FromSeconds(30), null);
                   }),
                16);
       }
-
+      private void ConfigureCookie(IServiceCollection services)
+      {
+         services.ConfigureApplicationCookie(options =>
+         {
+            options.LoginPath = $"/Identity/Account/Login";
+            options.LogoutPath = $"/Identity/Account/Logout";
+            options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+         });
+      }
+      private void ConfigureMisc(IServiceCollection services)
+      {
+         services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
+         services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+         services.AddHttpClient(Microsoft.Extensions.Options.Options.DefaultName);
+      }
+      private void ConfigureEndpoints(IApplicationBuilder app)
+      {
+         app.UseEndpoints(endpoints =>
+         {
+            endpoints.MapRazorPages();
+            endpoints.MapControllers();
+         });
+      }
+      private void ConfigureStaticFiles(IApplicationBuilder app, IWebHostEnvironment env)
+      {
+         app
+            .UseStaticFiles()
+            .UseStaticFiles(new StaticFileOptions
+            {
+               FileProvider = new PhysicalFileProvider(Path.Combine(env.WebRootPath, "upload")),
+               RequestPath = new PathString("/upload")
+            });
+      }
       private void ReadPdfConfiguration()
       {
          IConfigurationSection generatePdfSection = Configuration.GetSection("GeneratePdf");
