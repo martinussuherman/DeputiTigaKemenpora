@@ -41,7 +41,7 @@
 
    <div id="tooltip-template" style="display: none;">
       <div class="deputi-tooltip p-2">
-         <div class="text-right">
+         <div class="tooltip-close">
             <button
                type="button"
                onclick="hideTooltip();"
@@ -52,7 +52,8 @@
             </button>
          </div>
 
-         <h5 class="text-center">${Nama}</h5>
+         <h5 class="text-center mt-2">${Nama}</h5>
+         <h6 class="text-center">Jumlah Peserta: ${JumlahPeserta}</h6>
          <a class="btn btn-success btn-block p-0" href="~/Kegiatan/ByProvinsi?prov=${Id}">
             Jumlah Kegiatan: ${JumlahKegiatan}
          </a>
