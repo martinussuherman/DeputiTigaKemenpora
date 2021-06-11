@@ -8,6 +8,8 @@ namespace DeputiTigaKemenpora.ViewModels
 
       public int JumlahKegiatan { get; set; }
 
+      public long JumlahPeserta { get; set; }
+
       public decimal Lat { get; set; }
 
       public decimal Long { get; set; }
