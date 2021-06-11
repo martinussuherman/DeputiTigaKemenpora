@@ -121,6 +121,12 @@ img.logo
    pointer-events: all;
 }
 
+.tooltip-close
+{
+   position: absolute;
+   right: 10px;
+}
+
 .e-input-group.e-control-wrapper input.e-input[aria-mycontrol=ej2]
 {
    font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
