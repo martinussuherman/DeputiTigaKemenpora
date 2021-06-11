@@ -99,10 +99,11 @@ namespace DeputiTigaKemenpora.Pages
 
       private async Task<List<MapData>> LoadDataAsync()
       {
+         // reference: https://stackoverflow.com/questions/16522645/linq-groupby-sum-and-count
          return await _context.Kegiatan
             .Include(e => e.KabupatenKota.Provinsi)
             .Where(e => e.KabupatenKota.ProvinsiId != null)
-            .GroupBy(keySelector: e => new
+            .GroupBy(e => new
             {
                e.KabupatenKota.ProvinsiId,
                e.KabupatenKota.Provinsi.Nama,
@@ -115,7 +116,8 @@ namespace DeputiTigaKemenpora.Pages
                Nama = r.Key.Nama,
                Lat = r.Key.Lat,
                Long = r.Key.Long,
-               JumlahKegiatan = r.Count()
+               JumlahKegiatan = r.Count(),
+               JumlahPeserta = r.Sum(e => e.JumlahPeserta),
             })
             .ToListAsync();
       }
