@@ -41,6 +41,31 @@ namespace DeputiTigaKemenpora.Controllers
          return Ok(list);
       }
 
+      [HttpGet(nameof(PesertaBerdasarkanPenanggungJawab))]
+      [ProducesResponseType(StatusCodes.Status200OK)]
+      public async Task<IActionResult> PesertaBerdasarkanPenanggungJawab([FromQuery] int tahun)
+      {
+         var list = await _context.Kegiatan
+            .KegiatanByTahun(tahun)
+            .Include(e => e.PenanggungJawab)
+            .Where(e => e.PenanggungJawabId != null)
+            .GroupBy(e => new
+            {
+               e.PenanggungJawabId,
+               e.PenanggungJawab.Nama
+            })
+            .Select(r => new
+            {
+               Id = r.Key.PenanggungJawabId,
+               Nama = r.Key.Nama,
+               JumlahKegiatan = r.Count(),
+               JumlahPeserta = r.Sum(e => e.JumlahPeserta)
+            })
+            .ToListAsync();
+
+         return Ok(list);
+      }
+
       private readonly ApplicationDbContext _context;
    }
 }
