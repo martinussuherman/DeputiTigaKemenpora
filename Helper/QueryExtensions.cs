@@ -11,5 +11,12 @@ namespace DeputiTigaKemenpora.Helper
       {
          return tahun == 0 ? query : query.Where(e => e.TanggalMulai.Year == tahun);
       }
+
+      public static IQueryable<Kegiatan> KegiatanByProvinsi(
+          this IQueryable<Kegiatan> query,
+          int kodeProvinsi)
+      {
+         return kodeProvinsi == 0 ? query : query.Where(e => e.KabupatenKota.ProvinsiId == kodeProvinsi);
+      }
    }
 }
