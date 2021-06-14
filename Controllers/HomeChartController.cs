@@ -34,7 +34,7 @@ namespace DeputiTigaKemenpora.Controllers
             {
                Id = r.Key.SumberDanaId,
                Nama = r.Key.Nama,
-               Jumlah = r.Count()
+               JumlahKegiatan = r.Count()
             })
             .ToListAsync();
 
