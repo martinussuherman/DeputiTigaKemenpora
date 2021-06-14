@@ -88,6 +88,29 @@ namespace DeputiTigaKemenpora.Controllers
          return Ok(list);
       }
 
+      [HttpGet(nameof(PesertaBerdasarkanProvinsi))]
+      [ProducesResponseType(StatusCodes.Status200OK)]
+      public async Task<IActionResult> PesertaBerdasarkanProvinsi()
+      {
+         var list = await _context.Kegiatan
+            .Where(e => e.KabupatenKotaId != null)
+            .GroupBy(e => new
+            {
+               e.KabupatenKota.ProvinsiId,
+               e.KabupatenKota.Provinsi.Nama,
+            })
+            .Select(r => new
+            {
+               Id = r.Key.ProvinsiId,
+               Nama = r.Key.Nama,
+               JumlahKegiatan = r.Count(),
+               JumlahPeserta = r.Sum(e => e.JumlahPeserta)
+            })
+            .ToListAsync();
+
+         return Ok(list);
+      }
+
       private readonly ApplicationDbContext _context;
    }
 }
