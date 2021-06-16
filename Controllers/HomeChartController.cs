@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DeputiTigaKemenpora.Data;
 using DeputiTigaKemenpora.Helper;
+using DeputiTigaKemenpora.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,9 +21,9 @@ namespace DeputiTigaKemenpora.Controllers
 
       [HttpGet(nameof(SummaryPendanaan))]
       [ProducesResponseType(StatusCodes.Status200OK)]
-      public async Task<IActionResult> SummaryPendanaan([FromQuery] int tahun)
+      public async Task<List<ChartData>> SummaryPendanaan([FromQuery] int tahun)
       {
-         var list = await _context.Kegiatan
+         List<ChartData> list = await _context.Kegiatan
             .KegiatanByTahun(tahun)
             .Include(e => e.SumberDana)
             .Where(e => e.SumberDanaId != null)
@@ -30,22 +32,22 @@ namespace DeputiTigaKemenpora.Controllers
                e.SumberDanaId,
                e.SumberDana.Nama
             })
-            .Select(r => new
+            .Select(r => new ChartData
             {
-               Id = r.Key.SumberDanaId,
+               Id = (int)r.Key.SumberDanaId,
                Nama = r.Key.Nama,
                JumlahKegiatan = r.Count()
             })
             .ToListAsync();
 
-         return Ok(list);
+         return list;
       }
 
       [HttpGet(nameof(PesertaBerdasarkanPenanggungJawab))]
       [ProducesResponseType(StatusCodes.Status200OK)]
-      public async Task<IActionResult> PesertaBerdasarkanPenanggungJawab([FromQuery] int tahun)
+      public async Task<List<ChartData>> PesertaBerdasarkanPenanggungJawab([FromQuery] int tahun)
       {
-         var list = await _context.Kegiatan
+         List<ChartData> list = await _context.Kegiatan
             .KegiatanByTahun(tahun)
             .Include(e => e.PenanggungJawab)
             .Where(e => e.PenanggungJawabId != null)
@@ -54,61 +56,62 @@ namespace DeputiTigaKemenpora.Controllers
                e.PenanggungJawabId,
                e.PenanggungJawab.Nama
             })
-            .Select(r => new
+            .Select(r => new ChartData
             {
-               Id = r.Key.PenanggungJawabId,
+               Id = (int)r.Key.PenanggungJawabId,
                Nama = r.Key.Nama,
                JumlahKegiatan = r.Count(),
                JumlahPeserta = r.Sum(e => e.JumlahPeserta)
             })
             .ToListAsync();
 
-         return Ok(list);
+         return list;
       }
 
       [HttpGet(nameof(PesertaBerdasarkanTahun))]
       [ProducesResponseType(StatusCodes.Status200OK)]
-      public async Task<IActionResult> PesertaBerdasarkanTahun([FromQuery] int kodeProvinsi)
+      public async Task<List<ChartData>> PesertaBerdasarkanTahun([FromQuery] int kodeProvinsi)
       {
-         var list = await _context.Kegiatan
+         List<ChartData> list = await _context.Kegiatan
             .KegiatanByProvinsi(kodeProvinsi)
             .Where(e => e.KabupatenKotaId != null)
             .GroupBy(e => new
             {
                e.TanggalMulai.Year
             })
-            .Select(r => new
+            .Select(r => new ChartData
             {
-               Tahun = r.Key.Year,
+               Id = r.Key.Year,
+               Nama = r.Key.Year.ToString(),
                JumlahKegiatan = r.Count(),
                JumlahPeserta = r.Sum(e => e.JumlahPeserta)
             })
             .ToListAsync();
 
-         return Ok(list);
+         return list;
       }
 
       [HttpGet(nameof(PesertaBerdasarkanProvinsi))]
       [ProducesResponseType(StatusCodes.Status200OK)]
-      public async Task<IActionResult> PesertaBerdasarkanProvinsi()
+      public async Task<List<ChartData>> PesertaBerdasarkanProvinsi()
       {
-         var list = await _context.Kegiatan
+         List<ChartData> list = await _context.Kegiatan
             .Where(e => e.KabupatenKotaId != null)
             .GroupBy(e => new
             {
                e.KabupatenKota.ProvinsiId,
                e.KabupatenKota.Provinsi.Nama,
             })
-            .Select(r => new
+            .Select(r => new ChartData
             {
-               Id = r.Key.ProvinsiId,
+               Id = (int)r.Key.ProvinsiId,
                Nama = r.Key.Nama,
                JumlahKegiatan = r.Count(),
                JumlahPeserta = r.Sum(e => e.JumlahPeserta)
             })
             .ToListAsync();
 
-         return Ok(list);
+         return list;
       }
 
       private readonly ApplicationDbContext _context;
