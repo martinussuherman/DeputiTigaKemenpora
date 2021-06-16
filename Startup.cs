@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Reflection;
 using DeputiTigaKemenpora.Data;
 using Itm.Identity;
 using Microsoft.AspNetCore.Authorization;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace DeputiTigaKemenpora
 {
@@ -102,6 +104,10 @@ namespace DeputiTigaKemenpora
          services.AddSwaggerGen(c =>
          {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = "Kegiatan Deputi 3 API", Version = "v1" });
+            c.CustomOperationIds(apiDesc =>
+            {
+               return apiDesc.TryGetMethodInfo(out MethodInfo methodInfo) ? methodInfo.Name : null;
+            });
          });
       }
       private void ConfigureCookie(IServiceCollection services)
