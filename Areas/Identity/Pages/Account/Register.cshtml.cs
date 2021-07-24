@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using DeputiTigaKemenpora.Identity;
+using Edi.Captcha;
 using Itm.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -25,18 +26,21 @@ namespace DeputiTigaKemenpora.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ISessionBasedCaptcha _captcha;
 
-        public RegisterModel(
+      public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ISessionBasedCaptcha captcha)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-        }
+            _captcha = captcha;
+      }
 
         [BindProperty]
         public InputModel Input { get; set; }
