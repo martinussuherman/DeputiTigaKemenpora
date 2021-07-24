@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -19,114 +18,114 @@ using Microsoft.Extensions.Logging;
 
 namespace DeputiTigaKemenpora.Areas.Identity.Pages.Account
 {
-    [Authorize(Permissions.Users.All)]
-    public class RegisterModel : PageModel
-    {
-        private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
-        private readonly ISessionBasedCaptcha _captcha;
+   [Authorize(Permissions.Users.All)]
+   public class RegisterModel : PageModel
+   {
+      private readonly SignInManager<ApplicationUser> _signInManager;
+      private readonly UserManager<ApplicationUser> _userManager;
+      private readonly ILogger<RegisterModel> _logger;
+      private readonly IEmailSender _emailSender;
+      private readonly ISessionBasedCaptcha _captcha;
 
       public RegisterModel(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            ILogger<RegisterModel> logger,
-            IEmailSender emailSender,
-            ISessionBasedCaptcha captcha)
-        {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _logger = logger;
-            _emailSender = emailSender;
-            _captcha = captcha;
+         UserManager<ApplicationUser> userManager,
+         SignInManager<ApplicationUser> signInManager,
+         ILogger<RegisterModel> logger,
+         IEmailSender emailSender,
+         ISessionBasedCaptcha captcha)
+      {
+         _userManager = userManager;
+         _signInManager = signInManager;
+         _logger = logger;
+         _emailSender = emailSender;
+         _captcha = captcha;
       }
 
-        [BindProperty]
-        public InputModel Input { get; set; }
+      [BindProperty]
+      public InputModel Input { get; set; }
 
-        public string ReturnUrl { get; set; }
+      public string ReturnUrl { get; set; }
 
-        public IList<AuthenticationScheme> ExternalLogins { get; set; }
+      public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
-        public class InputModel
-        {
-            [Required]
-            [EmailAddress]
-            [Display(Name = "Email")]
-            public string Email { get; set; }
+      public class InputModel
+      {
+         [Required]
+         [EmailAddress]
+         [Display(Name = "Email")]
+         public string Email { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
-            [DataType(DataType.Password)]
-            [Display(Name = "Password")]
-            public string Password { get; set; }
+         [Required]
+         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+         [DataType(DataType.Password)]
+         [Display(Name = "Password")]
+         public string Password { get; set; }
 
-            [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-            public string ConfirmPassword { get; set; }
+         [DataType(DataType.Password)]
+         [Display(Name = "Confirm password")]
+         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+         public string ConfirmPassword { get; set; }
 
-            [Required]
-            [StringLength(4)]
-            public string CaptchaCode { get; set; }
-        }
+         [Required]
+         [StringLength(4)]
+         public string CaptchaCode { get; set; }
+      }
 
-        public async Task OnGetAsync(string returnUrl = null)
-        {
-            ReturnUrl = returnUrl;
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-        }
+      public async Task OnGetAsync(string returnUrl = null)
+      {
+         ReturnUrl = returnUrl;
+         ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+      }
 
-        public async Task<IActionResult> OnPostAsync(string returnUrl = null)
-        {
-            returnUrl ??= Url.Content("~/");
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+      public async Task<IActionResult> OnPostAsync(string returnUrl = null)
+      {
+         returnUrl ??= Url.Content("~/");
+         ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            if (!_captcha.Validate(Input.CaptchaCode, HttpContext.Session))
-            {
-               ModelState.AddModelError(string.Empty, "Invalid captcha");
-               return Page();
-            }
-
-            if (ModelState.IsValid)
-            {
-                ApplicationUser user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
-                IdentityResult result = await _userManager.CreateAsync(user, Input.Password);
-
-                if (result.Succeeded)
-                {
-                    _logger.LogInformation("User created a new account with password.");
-
-                    string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                    string callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: ("Identity", user.Id, code),
-                        protocol: Request.Scheme);
-
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                    if (_userManager.Options.SignIn.RequireConfirmedAccount)
-                    {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email });
-                    }
-                    else
-                    {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        return LocalRedirect(returnUrl);
-                    }
-                }
-                foreach (IdentityError error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
-            }
-
-            // If we got this far, something failed, redisplay form
+         if (!_captcha.Validate(Input.CaptchaCode, HttpContext.Session))
+         {
+            ModelState.AddModelError(string.Empty, "Invalid captcha");
             return Page();
-        }
-    }
+         }
+
+         if (ModelState.IsValid)
+         {
+            ApplicationUser user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+            IdentityResult result = await _userManager.CreateAsync(user, Input.Password);
+
+            if (result.Succeeded)
+            {
+               _logger.LogInformation("User created a new account with password.");
+
+               string code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+               code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+               string callbackUrl = Url.Page(
+                  "/Account/ConfirmEmail",
+                  pageHandler: null,
+                  values: ("Identity", user.Id, code),
+                  protocol: Request.Scheme);
+
+               await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                  $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+               if (_userManager.Options.SignIn.RequireConfirmedAccount)
+               {
+                  return RedirectToPage("RegisterConfirmation", new { email = Input.Email });
+               }
+               else
+               {
+                  await _signInManager.SignInAsync(user, isPersistent: false);
+                  return LocalRedirect(returnUrl);
+               }
+            }
+            foreach (IdentityError error in result.Errors)
+            {
+               ModelState.AddModelError(string.Empty, error.Description);
+            }
+         }
+
+         // If we got this far, something failed, redisplay form
+         return Page();
+      }
+   }
 }
