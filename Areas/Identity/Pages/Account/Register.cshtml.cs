@@ -66,6 +66,10 @@ namespace DeputiTigaKemenpora.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [StringLength(4)]
+            public string CaptchaCode { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -78,6 +82,12 @@ namespace DeputiTigaKemenpora.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            if (!_captcha.Validate(Input.CaptchaCode, HttpContext.Session))
+            {
+               ModelState.AddModelError(string.Empty, "Invalid captcha");
+               return Page();
+            }
 
             if (ModelState.IsValid)
             {
