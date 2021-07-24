@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using DeputiTigaKemenpora.Data;
+using Edi.Captcha;
 using Itm.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -69,6 +70,13 @@ namespace DeputiTigaKemenpora
 
          string basePath = string.Empty;
 
+         app.UseSession().UseCaptchaImage(options =>
+         {
+            options.RequestPath = "/captcha-image";
+            options.ImageHeight = 44;
+            options.ImageWidth = 130;
+         });
+
          ConfigureEndpoints(app);
          ConfigureStaticFiles(app, env);
          ConfigureSwaggerUI(app, basePath);
@@ -124,6 +132,13 @@ namespace DeputiTigaKemenpora
          services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
          services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
          services.AddHttpClient(Microsoft.Extensions.Options.Options.DefaultName);
+         services.AddSession(options =>
+         {
+            options.IdleTimeout = TimeSpan.FromMinutes(20);
+            options.Cookie.HttpOnly = true;
+         });
+
+         services.AddSessionBasedCaptcha();
       }
       private void ConfigureEndpoints(IApplicationBuilder app)
       {
