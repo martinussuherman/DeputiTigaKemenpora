@@ -10,30 +10,31 @@
       <a asp-page="Create" class="btn btn-success">Tambah</a>
    </p>
 
-   <table class="table table-responsive">
-      <thead>
-         <tr>
-            <th>
-               Kode
-            </th>
-            <th>
-               Nama
-            </th>
-            <th>
-               Lintang
-            </th>
-            <th>
-               Bujur
-            </th>
-            <th>
-            </th>
-         </tr>
-      </thead>
+   <div class="table-responsive">
+      <table class="table">
+         <thead>
+            <tr>
+               <th>
+                  Kode
+               </th>
+               <th>
+                  Nama
+               </th>
+               <th>
+                  Lintang
+               </th>
+               <th>
+                  Bujur
+               </th>
+               <th>
+               </th>
+            </tr>
+         </thead>
 
-      <tbody>
+         <tbody>
 
-         @foreach (var item in Model.Provinsi)
-         {
+@foreach (var item in Model.Provinsi)
+{
             <tr>
                <td>
                   @item.Id
@@ -52,10 +53,11 @@
                   <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Hapus</a>
                </td>
             </tr>
-         }
+}
 
-      </tbody>
-   </table>
+         </tbody>
+      </table>
+   </div>
 
    @await Html.PartialAsync("_PagingPartial", Model.Provinsi)
 </div>

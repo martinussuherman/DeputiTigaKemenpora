@@ -10,24 +10,25 @@
       <a asp-page="Create" class="btn btn-success">Tambah</a>
    </p>
 
-   <table class="table table-responsive">
-      <thead>
-         <tr>
-            <th>
-               Id
-            </th>
-            <th>
-               Nama
-            </th>
-            <th>
-            </th>
-         </tr>
-      </thead>
+   <div class="table-responsive">
+      <table class="table">
+         <thead>
+            <tr>
+               <th>
+                  Id
+               </th>
+               <th>
+                  Nama
+               </th>
+               <th>
+               </th>
+            </tr>
+         </thead>
 
-      <tbody>
+         <tbody>
 
-         @foreach (var item in Model.SumberDana)
-         {
+@foreach (var item in Model.SumberDana)
+{
             <tr>
                <td>
                   @item.Id
@@ -40,10 +41,11 @@
                   <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Hapus</a>
                </td>
             </tr>
-         }
+}
 
-      </tbody>
-   </table>
+         </tbody>
+      </table>
+   </div>
 
    @await Html.PartialAsync("_PagingPartial", Model.SumberDana)
 </div>
