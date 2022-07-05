@@ -32,11 +32,12 @@ namespace DeputiTigaKemenpora
       {
          ConfigureDatabase(services);
          ConfigureSwagger(services);
-         ConfigureCookie(services);
          ConfigureMisc(services);
 
          services.AddIdentity<ApplicationUser, ApplicationRole>()
             .AddEntityFrameworkStores<IdentityDbContext>();
+         ConfigureCookie(services);
+
          services.AddRazorPages();
          services.AddMvc();
       }
