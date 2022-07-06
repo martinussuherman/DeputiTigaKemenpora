@@ -5,7 +5,6 @@ function hideTooltip() {
 function AjaxSummaryKegiatan(tahunSummary) {
    $.getJSON('/Ajax/FilterSummary',
       { tahun: tahunSummary }, function (data) {
-         $('#kegiatan-summary').empty();
          var items = '';
          var summaryList = data.summary;
 
@@ -14,6 +13,7 @@ function AjaxSummaryKegiatan(tahunSummary) {
          });
 
          items += DisplayTotal(data);
+         $('#kegiatan-summary').empty();
          $('#kegiatan-summary').html(items);
       });
 }
