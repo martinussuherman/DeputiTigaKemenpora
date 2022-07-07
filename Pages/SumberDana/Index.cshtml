@@ -10,42 +10,40 @@
       <a asp-page="Create" class="btn btn-success">Tambah</a>
    </p>
 
-   <div class="table-responsive">
-      <table class="table">
-         <thead>
-            <tr>
-               <th>
-                  Id
-               </th>
-               <th>
-                  Nama
-               </th>
-               <th>
-               </th>
-            </tr>
-         </thead>
+   <table class="tablesaw tablesaw-stack" data-tablesaw-mode="stack">
+      <thead>
+         <tr>
+            <th>
+               Id
+            </th>
+            <th>
+               Nama
+            </th>
+            <th>
+            </th>
+         </tr>
+      </thead>
 
-         <tbody>
+      <tbody>
 
 @foreach (var item in Model.SumberDana)
 {
-            <tr>
-               <td>
-                  @item.Id
-               </td>
-               <td>
-                  @item.Nama
-               </td>
-               <td>
-                  <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-warning">Ubah</a>
-                  <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Hapus</a>
-               </td>
-            </tr>
+         <tr>
+            <td>
+               @item.Id
+            </td>
+            <td>
+               @item.Nama
+            </td>
+            <td>
+               <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-warning">Ubah</a>
+               <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Hapus</a>
+            </td>
+         </tr>
 }
 
-         </tbody>
-      </table>
-   </div>
+      </tbody>
+   </table>
 
    @await Html.PartialAsync("_PagingPartial", Model.SumberDana)
 </div>

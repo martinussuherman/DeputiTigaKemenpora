@@ -10,60 +10,58 @@
       <a asp-page="Create" class="btn btn-success">Tambah</a>
    </p>
 
-   <div class="table-responsive">
-      <table class="table">
-         <thead>
-            <tr>
-               <th>
-                  Kode
-               </th>
-               <th>
-                  Nama
-               </th>
-               <th>
-                  Provinsi
-               </th>
-               <th>
-                  Lintang
-               </th>
-               <th>
-                  Bujur
-               </th>
-               <th>
-               </th>
-            </tr>
-         </thead>
+   <table class="tablesaw tablesaw-stack" data-tablesaw-mode="stack">
+      <thead>
+         <tr>
+            <th>
+               Kode
+            </th>
+            <th>
+               Nama
+            </th>
+            <th>
+               Provinsi
+            </th>
+            <th>
+               Lintang
+            </th>
+            <th>
+               Bujur
+            </th>
+            <th>
+            </th>
+         </tr>
+      </thead>
 
-         <tbody>
+      <tbody>
 
 @foreach (var item in Model.KabupatenKota)
 {
-            <tr>
-               <td>
-                  @item.Id
-               </td>
-               <td>
-                  @item.Nama
-               </td>
-               <td>
-                  @item.NamaProvinsi
-               </td>
-               <td>
-                  @item.Lat
-               </td>
-               <td>
-                  @item.Long
-               </td>
-               <td>
-                  <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-warning">Ubah</a>
-                  <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Hapus</a>
-               </td>
-            </tr>
+         <tr>
+            <td>
+               @item.Id
+            </td>
+            <td>
+               @item.Nama
+            </td>
+            <td>
+               @item.NamaProvinsi
+            </td>
+            <td>
+               @item.Lat
+            </td>
+            <td>
+               @item.Long
+            </td>
+            <td>
+               <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-warning">Ubah</a>
+               <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-danger">Hapus</a>
+            </td>
+         </tr>
 }
 
-         </tbody>
-      </table>
-   </div>
+      </tbody>
+   </table>
 
    @await Html.PartialAsync("_PagingPartial", Model.KabupatenKota)
 </div>
